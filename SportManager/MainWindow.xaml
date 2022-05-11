@@ -6,7 +6,77 @@
         xmlns:local="clr-namespace:SportManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Padding="6" Background="#4CD1FF00" BorderThickness="0,0,10,0" ScrollViewer.CanContentScroll="True" BorderBrush="#FFC5FF00"  >
+            <Grid  >
+                <StackPanel Orientation="Vertical"  VerticalAlignment="Center" >
+                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" >Dodaj turniej</Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <StackPanel>
+                    <DockPanel>
+                        <Label Margin="3">Sorting</Label>
+                        <ComboBox >
+                            <ComboBoxItem>Start date - ascending</ComboBoxItem>
+                            <ComboBoxItem>Start date - descending</ComboBoxItem>
+                            <ComboBoxItem>Status - ascending</ComboBoxItem>
+                            <ComboBoxItem>Status - descending</ComboBoxItem>
+                        </ComboBox>
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Margin="3">Active tournaments </Label>
+                        <CheckBox  VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Margin="3">Tournament title</Label>
+                       <TextBox />
+                    </DockPanel>
+                    <Separator />
+                </StackPanel>
+            </Grid>
+            
+
+            <ListBox Name="tournametsList" Margin="10" Grid.Row="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderThickness="3" BorderBrush="AntiqueWhite"   Padding="4,4,4,4" Margin="0,0,0,8"  MinWidth="300" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                        <ColumnDefinition  Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" ></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.ColumnSpan="2" Text="{Binding Path=title}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=startDate}" Margin="0,0,20,0"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="1"  Text="{Binding Status}"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
     </Grid>
+
 </Window>
