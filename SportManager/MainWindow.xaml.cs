@@ -34,5 +34,14 @@ namespace SportManager
         new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), TournamentStatus.NOT_STARTED)
        });
         }
+
+        private void Create_Tournament(object sender, RoutedEventArgs e)
+        {
+            CreateTournament create = new CreateTournament();
+            if(true == create.ShowDialog())
+            {
+
+            }
+        }
     }
 }

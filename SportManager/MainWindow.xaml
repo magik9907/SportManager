@@ -15,7 +15,7 @@
         <Border Padding="6" Background="#4CD1FF00" BorderThickness="0,0,10,0" ScrollViewer.CanContentScroll="True" BorderBrush="#FFC5FF00"  >
             <Grid  >
                 <StackPanel Orientation="Vertical"  VerticalAlignment="Center" >
-                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" >Dodaj turniej</Button>
+                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="Create_Tournament" >Dodaj turniej</Button>
                 </StackPanel>
             </Grid>
         </Border>
@@ -51,15 +51,14 @@
             <ListBox Name="tournametsList" Margin="10" Grid.Row="1">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border BorderThickness="3" BorderBrush="AntiqueWhite"   Padding="4,4,4,4" Margin="0,0,0,8"  MinWidth="300" >
+                            <Border BorderThickness="3" BorderBrush="AntiqueWhite"   Padding="4,4,4,4" Margin="0,0,0,8"  MinWidth="400" >
                                 <Grid >
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="300" ></ColumnDefinition>
                                         <ColumnDefinition  Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
@@ -76,7 +75,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-
+
+
     </Grid>
 
 </Window>
