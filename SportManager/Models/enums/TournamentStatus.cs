@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SportManager.Models.enums
 {
-    enum TournamentStatus
+   public enum TournamentStatus
     {
         NOT_STARTED,
         IN_PRROGRESS,

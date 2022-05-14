@@ -14,12 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace SportManager
 {
     public partial class MainWindow : Window
     {
         private List<Tournament> tournaments = new List<Tournament>();
+        public Collection<Team> teams = new Collection<Team>();
 
         public MainWindow()
         {
@@ -39,6 +41,25 @@ namespace SportManager
         {
             CreateTournament create = new CreateTournament();
             if(true == create.ShowDialog())
+            {
+
+            }
+        }
+     
+
+        private void showTournament(object sender, SelectionChangedEventArgs e)
+        {
+            Tournament tournament = tournaments.ElementAt(tournametsList.SelectedIndex);
+            TournamentDetails tournamentDetails = new TournamentDetails(tournament, teams);
+            if (true == tournamentDetails.ShowDialog())
+            {
+
+            }
+        }
+        private void createTeam(object sender, RoutedEventArgs e)
+        {
+            CreateTeam createTeam = new CreateTeam();
+            if(true == createTeam.ShowDialog())
             {
 
             }

@@ -1,0 +1,69 @@
+﻿<Window x:Class="SportManager.TournamentDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportManager"
+        mc:Ignorable="d"
+        Title="TournamentDetails" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <TextBlock x:Name="title" Text="Tournament Name" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </DockPanel>
+        
+        <TabControl Grid.Row="1"  TabStripPlacement="Right" HorizontalContentAlignment="Right" >
+
+            <TabItem Header="Matches">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="90*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Text="mecze" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <ListBox Grid.Row="1">
+                        
+                    </ListBox>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Staticstics">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="90*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Text="Statystyki" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <ListBox Grid.Row="1">
+
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Participating teams" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="90*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Text="Drużyny" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <ListBox Grid.Row="1">
+
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Add team">
+                <Grid>
+                    <TextBlock  Text="wybieranie i dodawanie" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Remove team">
+                <Grid>
+                    <TextBlock  Text="wybieranie i usuwanie" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

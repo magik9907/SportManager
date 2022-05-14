@@ -16,6 +16,7 @@
             <Grid  >
                 <StackPanel Orientation="Vertical"  VerticalAlignment="Center" >
                     <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="Create_Tournament" >Dodaj turniej</Button>
+                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="createTeam" >Create Team</Button>
                 </StackPanel>
             </Grid>
         </Border>
@@ -48,9 +49,9 @@
             </Grid>
             
 
-            <ListBox Name="tournametsList" Margin="10" Grid.Row="1">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
+            <ListBox Name="tournametsList" Margin="10" Grid.Row="1" SelectionMode="Single" SelectionChanged="showTournament">
+                <ListBox.ItemTemplate >
+                    <DataTemplate >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -65,7 +66,7 @@
                                         <RowDefinition Height="*" ></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.ColumnSpan="2" Text="{Binding Path=title}"/>
+                                    <TextBlock  Grid.ColumnSpan="2" Text="{Binding Path=title}"/>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=startDate}" Margin="0,0,20,0"/>
                                     <TextBlock Grid.Column="1" Grid.Row="1"  Text="{Binding Status}"/>
                                 </Grid>

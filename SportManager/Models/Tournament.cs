@@ -1,19 +1,23 @@
 ﻿using SportManager.Models.enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SportManager.Models
 {
-    class Tournament
+    public class Tournament
     {
         public int id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public DateTime startDate { get; set; }
         public TournamentStatus status { get; set; }
+
+        public Collection<Team> teams { get; set; }
+
         public String Status
         {
             get
