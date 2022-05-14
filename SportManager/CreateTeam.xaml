@@ -24,14 +24,16 @@
         <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15*"/>
-                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="30*"/>
                     <ColumnDefinition Width="10*"/>
-                </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
      
                 <TextBlock Grid.Column="0" Text="Name" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <TextBox Grid.Column="1" x:Name="nameBox" Margin="20"  FontSize="16" VerticalContentAlignment="Center"  ></TextBox>
-                <Button Grid.Column="2" Content="Choose Crest" Margin="0,20" />
-            </Grid>
+                <Button Grid.Column="2" Content="Choose Crest" Margin="5,25" Click="chooseCrestClick" />
+            <Image Grid.Column="3"  Name="imgPhoto" Margin="60,10" Stretch="Fill"  />
+        </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
@@ -61,8 +63,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Cancel" Margin="100,20" Background="Red" FontSize="16"/>
-            <Button Grid.Column="1" Content="Create" Margin="100,20" FontSize="16" Background="Green"/>
+            <Button Grid.Column="0" Content="Cancel" Margin="100,20" Background="Red" FontSize="16" Click="okClick"/>
+            <Button Grid.Column="1" Content="Create" Margin="100,20" FontSize="16" Background="Green" IsCancel="True"/>
         </Grid>
 
     </Grid>

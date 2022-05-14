@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,23 @@ namespace SportManager
         public CreateTeam()
         {
             InitializeComponent();
+        }
+
+        public void chooseCrestClick(object sender,RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                imgPhoto.Source = new BitmapImage(new Uri(op.FileName));
+            }
+        }
+        private void okClick(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

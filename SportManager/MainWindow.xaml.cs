@@ -61,7 +61,8 @@ namespace SportManager
             CreateTeam createTeam = new CreateTeam();
             if(true == createTeam.ShowDialog())
             {
-
+                Team team = new Team(teams.Count(), createTeam.nameBox.Text, createTeam.streetNameBox.Text, createTeam.streetNumberBox.Text, createTeam.postalCodeBox.Text, createTeam.cityBox.Text, (BitmapImage)createTeam.imgPhoto.Source);
+                teams.Add(team);
             }
         }
     }

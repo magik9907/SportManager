@@ -17,6 +17,7 @@ namespace SportManager.Models
 
         public BitmapImage crest { get; set; }
 
+
         public string streetName
         {
             get { return streetName; }

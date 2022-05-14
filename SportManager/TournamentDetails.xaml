@@ -23,7 +23,7 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="90*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock  Text="mecze" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock  Text="Matches" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
                     <ListBox Grid.Row="1">
                         
                     </ListBox>
@@ -46,22 +46,56 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="90*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="10*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock  Text="Drużyny" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
-                    <ListBox Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Id" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="0"/>
+                        <TextBlock Text="Crest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
+                        <TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="2"/>
+                        <TextBlock Text="Address" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="3"/>
+
+                    </Grid>
+
+                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible">
 
                     </ListBox>
+
+                    <Button Grid.Row="2" Content="Remove team" Margin="250,10" Click="clickRemoveTeam"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Add team">
                 <Grid>
-                    <TextBlock  Text="wybieranie i dodawanie" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Remove team">
-                <Grid>
-                    <TextBlock  Text="wybieranie i usuwanie" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Id" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="0"/>
+                        <TextBlock Text="Crest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
+                        <TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="2"/>
+                        <TextBlock Text="Address" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="3"/>
+
+                    </Grid>
+
+                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible">
+
+                    </ListBox>
+
+                    <Button Grid.Row="2" Content="Add team" Margin="250,10" Click="clickAddTeam"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -31,5 +31,13 @@ namespace SportManager
             this.title.Text = tournament.title;
             
         }
+        public void clickAddTeam(object sender, RoutedEventArgs e)
+        {
+
+        }
+        public void clickRemoveTeam(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
