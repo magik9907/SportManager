@@ -21,7 +21,7 @@ namespace SportManager
     /// </summary>
     public partial class TournamentDetails : Window
     {
-        private Tournament tournament;
+        public Tournament tournament;
         private Collection<Team> teams = new Collection<Team>();
 
         public TournamentDetails(Tournament tournament, Collection<Team> teams)
@@ -29,7 +29,9 @@ namespace SportManager
             InitializeComponent();
             this.tournament = tournament;
             this.title.Text = tournament.title;
-            
+
+            leagueStandingView.ItemsSource = tournament.league.rank;
+
         }
         public void clickAddTeam(object sender, RoutedEventArgs e)
         {

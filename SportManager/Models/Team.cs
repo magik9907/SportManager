@@ -69,7 +69,7 @@ namespace SportManager.Models
                 }
             }
         }
-
+        public Team() { }
         public Team(int id, string name, string streetName, string streetNumber, string postalCode, string city)
         {
             this.id = id;

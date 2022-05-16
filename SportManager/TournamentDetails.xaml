@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:SportManager"
         mc:Ignorable="d"
         Title="TournamentDetails" Height="450" Width="800">
+    
     <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="CrestTemplate" >
+                <Image  Name="imgPhoto" Margin="60,10" Stretch="Fill"  />
+            </DataTemplate>
+           
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="90*"/>
@@ -28,6 +36,27 @@
                         
                     </ListBox>
                 </Grid>
+
+            </TabItem>
+
+            <TabItem Header="Standing">
+                <DataGrid AutoGenerateColumns="False" IsReadOnly="True"  x:Name="leagueStandingView">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="L.P." Binding="{Binding lp}"/>
+                        <DataGridTemplateColumn Header="Crest" CellTemplate="{StaticResource CrestTemplate}" />
+                        <DataGridTextColumn Header="Team"  Width="*" Binding="{Binding team.name}"/>
+                        <DataGridTextColumn Header="Points" Binding="{Binding points}"/>
+                        <DataGridTextColumn Header="Win" Binding="{Binding win}"/>
+                        <DataGridTextColumn Header="Win" Binding="{Binding draw}"/>
+                        <DataGridTextColumn Header="Win" Binding="{Binding loose}"/>
+                        <DataGridTextColumn Header="Win" Binding="{Binding goal_for}"/>
+                        <DataGridTextColumn Header="Win" Binding="{Binding goal_against}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                
+            </TabItem>
+            <TabItem Header="Cup">
+
 
             </TabItem>
             <TabItem Header="Staticstics">
@@ -70,7 +99,7 @@
                     <Button Grid.Row="2" Content="Remove team" Margin="250,10" Click="clickRemoveTeam"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Add team">
+            <TabItem Header="Add team" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -95,7 +124,7 @@
 
                     </ListBox>
 
-                    <Button Grid.Row="2" Content="Add team" Margin="250,10" Click="clickAddTeam"/>
+                    <Button Grid.Row="2" Content="Add team" Margin="250,10" Click="clickAddTeam" />
                 </Grid>
             </TabItem>
         </TabControl>
