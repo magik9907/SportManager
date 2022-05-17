@@ -55,8 +55,10 @@
                 </DataGrid>
                 
             </TabItem>
-            <TabItem Header="Cup">
-
+            <TabItem Header="Cup" >
+                <ScrollViewer x:Name="CupView"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                   
+                </ScrollViewer>
 
             </TabItem>
             <TabItem Header="Staticstics">
