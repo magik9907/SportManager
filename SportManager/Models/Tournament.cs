@@ -15,7 +15,7 @@ namespace SportManager.Models
         public string description { get; set; }
         public DateTime startDate { get; set; }
         public TournamentStatus status { get; set; }
-
+        public LeagueStanding league { get; set; }
         public Collection<Team> teams { get; set; }
 
         public String Status
@@ -36,12 +36,14 @@ namespace SportManager.Models
         {
         }
 
-        public Tournament(int id, string title, DateTime start, TournamentStatus status)
+        public Tournament(int id, string title, DateTime start, TournamentStatus status,LeagueStanding league)
         {
             this.id = id;
             this.title = title;
             this.startDate = start;
             this.status = status;
+            this.league = league;
+            this.teams = new Collection<Team>();
         }
 
 

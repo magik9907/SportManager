@@ -63,8 +63,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Cancel" Margin="100,20" Background="Red" FontSize="16" Click="okClick"/>
-            <Button Grid.Column="1" Content="Create" Margin="100,20" FontSize="16" Background="Green" IsCancel="True"/>
+            <Button Grid.Column="0" Content="Cancel" Margin="100,20" Background="Red" FontSize="16" IsCancel="True"/>
+            <Button Grid.Column="1" Content="Create" Margin="100,20" FontSize="16" Background="Green" Click="okClick"/>
         </Grid>
 
     </Grid>
