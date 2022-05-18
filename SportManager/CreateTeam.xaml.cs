@@ -36,6 +36,7 @@ namespace SportManager
             {
                 imgPhoto.Source = new BitmapImage(new Uri(op.FileName));
             }
+            
         }
         private void okClick(object sender, RoutedEventArgs e)
         {
