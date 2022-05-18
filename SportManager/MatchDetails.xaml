@@ -1,0 +1,51 @@
+﻿<Window x:Class="SportManager.MatchDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportManager"
+        mc:Ignorable="d"
+        Title="MatchDetails"  SizeToContent="Height" Width="400"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" FontSize="14">
+    <Grid>
+        <Border BorderThickness="3" Grid.ColumnSpan="2" CornerRadius="15" BorderBrush="DarkBlue" Background="DodgerBlue"/>
+            <StackPanel Margin="5">
+                <Label Content="Informacje o meczu" Margin="5 5 5 0"/>
+                <TextBox Name="Who" Margin="5" Padding="2" Text="Jaga vs Legia" />
+                <Label Content="Data rozegrania meczu" Margin="5 5 5 0"/>
+            <TextBox Name="Date" Margin="5" Padding="2" Text="01.06.2016  #można dać też tu kalendarz"/>
+            <GroupBox Header="Statystyki" Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Jaga" Margin="3" >
+                        <StackPanel Margin="3">
+                            <CheckBox Margin="3" Checked="Gol_1" Content="Strzelone bramki"/>
+                            <CheckBox Margin="3" Checked="YellowCard_1" Content="Żółte kartki"/>
+                            <CheckBox Margin="3" Checked="RedCard_1" Content="Czerwone kartki"/>
+                            <TextBox Name="Info_1" MinLines="1" MaxLines="8" VerticalScrollBarVisibility="Auto" IsReadOnly="True"></TextBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Legia" Grid.Column="1" Margin="3">
+                        <StackPanel Margin="3">
+                            <CheckBox Margin="3" Checked="Gol_2" Content="Strzelone bramki"/>
+                            <CheckBox Margin="3" Checked="YellowCard_2" Content="Żółte kartki"/>
+                            <CheckBox Margin="3" Checked="RedCard_2" Content="Czerwone kartki"/>
+                            <TextBox Name="Info_2" MinLines="1" MaxLines="8" VerticalScrollBarVisibility="Auto" IsReadOnly="True"></TextBox>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Ok" Margin="5" Padding="5" Click="OK_Click"/>
+                <Button Content="Anuluj" Margin="5" Padding="5" Grid.Column="1" Click="Cancel_Click"/>
+             </Grid>
+         </StackPanel>
+     </Grid>
+</Window>
