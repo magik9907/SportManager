@@ -16,7 +16,7 @@ namespace SportManager.Models
         
         public string address { get; set; }
 
-        public ImageSource crest { get; set; }
+        public ImageSource crest { get; set; } = new BitmapImage(new Uri("pack://application:,,,/images/defaultcrest.png"));
 
 
         public string streetName { get; set; }
@@ -39,7 +39,6 @@ namespace SportManager.Models
             this.streetNumber = streetNumber;
             this.postalCode = postalCode;
             this.city = city;
-            this.crest = new BitmapImage(new Uri("pack://application:,,,/images/defaultcrest.png"));
             this.address = streetName + " " + streetNumber + ", " + postalCode + " " + city;
         }
         public Team(int id, string name, string streetName, string streetNumber, string postalCode, string city, ImageSource crest)

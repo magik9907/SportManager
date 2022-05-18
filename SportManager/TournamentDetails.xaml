@@ -9,10 +9,7 @@
     
     <Grid>
         <Grid.Resources>
-            <DataTemplate x:Key="CrestTemplate" >
-                <Image  Name="imgPhoto" Margin="60,10" Stretch="Fill"  />
-            </DataTemplate>
-           
+
         </Grid.Resources>
 
         <Grid.RowDefinitions>
@@ -43,14 +40,23 @@
                 <DataGrid AutoGenerateColumns="False" IsReadOnly="True"  x:Name="leagueStandingView">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="L.P." Binding="{Binding lp}"/>
-                        <DataGridTemplateColumn Header="Crest" CellTemplate="{StaticResource CrestTemplate}" />
+
+                        <DataGridTemplateColumn  Width="SizeToCells" Header="Crest">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <Grid>
+                                        <Image Source="{Binding team.crest}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Team"  Width="*" Binding="{Binding team.name}"/>
                         <DataGridTextColumn Header="Points" Binding="{Binding points}"/>
                         <DataGridTextColumn Header="Win" Binding="{Binding win}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding draw}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding loose}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding goal_for}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding goal_against}"/>
+                        <DataGridTextColumn Header="Draw" Binding="{Binding draw}"/>
+                        <DataGridTextColumn Header="Loose" Binding="{Binding loose}"/>
+                        <DataGridTextColumn Header="Goals for" Binding="{Binding goal_for}"/>
+                        <DataGridTextColumn Header="Goals against" Binding="{Binding goal_against}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 
