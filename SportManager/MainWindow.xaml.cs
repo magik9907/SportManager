@@ -42,6 +42,10 @@ namespace SportManager
         new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), TournamentStatus.NOT_STARTED,league)
        });
 
+            teams.Add(
+                new Team(1, "FC Barcelona", "C. d'Arístides Maillol", "12", "08028", "Barcelona"));
+            teams.Add(
+                new Team(2, "Bayern Monachium", "Werner-Heisenberg-Allee", "25", "80939 ", "München"));
            
 
         }
@@ -68,11 +72,15 @@ namespace SportManager
         private void createTeam(object sender, RoutedEventArgs e)
         {
             CreateTeam createTeam = new CreateTeam();
+            createTeam.Title = "Create a new team";
+            createTeam.Owner = this;
             if(true == createTeam.ShowDialog())
             {
-                Team team = new Team(teams.Count(), createTeam.nameBox.Text, createTeam.streetNameBox.Text, createTeam.streetNumberBox.Text, createTeam.postalCodeBox.Text, createTeam.cityBox.Text, (BitmapImage)createTeam.imgPhoto.Source);
+                Console.WriteLine("\n tworenie nowego zsespolu");
+                Team team = new Team(teams.Count()+1, createTeam.nameBox.Text, createTeam.streetNameBox.Text, createTeam.streetNumberBox.Text, createTeam.postalCodeBox.Text, createTeam.cityBox.Text, createTeam.imgPhoto.Source);
                 teams.Add(team);
             }
+           
         }
     }
 }

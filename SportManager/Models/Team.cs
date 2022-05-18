@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace SportManager.Models
 {
@@ -15,60 +16,20 @@ namespace SportManager.Models
         
         public string address { get; set; }
 
-        public BitmapImage crest { get; set; }
+        public ImageSource crest { get; set; }
 
 
-        public string streetName
-        {
-            get { return streetName; }
-            set 
-            {
-                foreach(char c in value)
-                {
-                    if (c < 'A' || c > 'z')
-                        throw new ArgumentException("Street name contains only letters!");
-                }
-                streetName = value; }
-        }
-        public string streetNumber
-        { 
-            get{ return streetNumber; }
-            set
-            {
-                foreach (char c in value)
-                {
-                    if (c < '0' || c > '9')
-                        throw new ArgumentException("Street number contains only numbers!");
-                }
-                streetNumber = value;
-            }
-        }
-        public string city
-        {
-            get { return city; }
-            set
-            {
-                foreach (char c in value)
-                {
-                    if (c < 'A' || c > 'z')
-                        throw new ArgumentException("City contains only letters!");
-                }
-                city = value;
-            }
-        }
+        public string streetName { get; set; }
+       
+            
+       
+        public string streetNumber { get; set; }
 
-        public string postalCode
-        {
-            get { return postalCode; }
-            set
-            {
-                foreach(char c in value)
-                {
-                    if ((c < '0' || c > '9') || c != '-')
-                        throw new ArgumentException("Postal code contains letter and '-'");
-                }
-            }
-        }
+        public string city { get; set; }
+
+
+        public string postalCode { get; set; }
+
         public Team() { }
         public Team(int id, string name, string streetName, string streetNumber, string postalCode, string city)
         {
@@ -78,8 +39,10 @@ namespace SportManager.Models
             this.streetNumber = streetNumber;
             this.postalCode = postalCode;
             this.city = city;
+            this.crest = new BitmapImage(new Uri("pack://application:,,,/images/defaultcrest.png"));
+            this.address = streetName + " " + streetNumber + ", " + postalCode + " " + city;
         }
-        public Team(int id, string name, string streetName, string streetNumber, string postalCode, string city, BitmapImage crest)
+        public Team(int id, string name, string streetName, string streetNumber, string postalCode, string city, ImageSource crest)
         {
             this.id = id;
             this.name = name;
@@ -87,7 +50,15 @@ namespace SportManager.Models
             this.streetNumber = streetNumber;
             this.postalCode = postalCode;
             this.city = city;
-            this.crest = crest;
+            if(crest != null)
+            {
+                this.crest = crest;
+            }
+            else
+            {
+                this.crest = new BitmapImage(new Uri("pack://application:,,,/images/defaultcrest.png"));
+            }
+            this.address = streetName + " " + streetNumber + ", " + postalCode + " " + city;
         }
 
         public string addressToString
