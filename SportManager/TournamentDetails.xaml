@@ -9,10 +9,7 @@
     
     <Grid>
         <Grid.Resources>
-            <DataTemplate x:Key="CrestTemplate" >
-                <Image  Name="imgPhoto" Margin="60,10" Stretch="Fill"  />
-            </DataTemplate>
-           
+
         </Grid.Resources>
 
         <Grid.RowDefinitions>
@@ -43,14 +40,23 @@
                 <DataGrid AutoGenerateColumns="False" IsReadOnly="True"  x:Name="leagueStandingView">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="L.P." Binding="{Binding lp}"/>
-                        <DataGridTemplateColumn Header="Crest" CellTemplate="{StaticResource CrestTemplate}" />
+
+                        <DataGridTemplateColumn  Width="SizeToCells" Header="Crest">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <Grid>
+                                        <Image Source="{Binding team.crest}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Team"  Width="*" Binding="{Binding team.name}"/>
                         <DataGridTextColumn Header="Points" Binding="{Binding points}"/>
                         <DataGridTextColumn Header="Win" Binding="{Binding win}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding draw}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding loose}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding goal_for}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding goal_against}"/>
+                        <DataGridTextColumn Header="Draw" Binding="{Binding draw}"/>
+                        <DataGridTextColumn Header="Loose" Binding="{Binding loose}"/>
+                        <DataGridTextColumn Header="Goals for" Binding="{Binding goal_for}"/>
+                        <DataGridTextColumn Header="Goals against" Binding="{Binding goal_against}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 
@@ -82,10 +88,10 @@
                     </Grid.RowDefinitions>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="8*"/>
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Id" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="0"/>
                         <TextBlock Text="Crest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
@@ -94,14 +100,34 @@
 
                     </Grid>
 
-                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible">
-
+                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="participatingTeamsListBox" HorizontalAlignment="Stretch">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate >
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5*"/>
+                                            <ColumnDefinition Width="8*"/>
+                                            <ColumnDefinition Width="15*"/>
+                                            <ColumnDefinition Width="40*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding id}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <Image Grid.Column="1" Source="{Binding crest}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding name}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding address}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
                     </ListBox>
 
                     <Button Grid.Row="2" Content="Remove team" Margin="250,10" Click="clickRemoveTeam"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Add team" >
+            <TabItem Header="Add team" Height="20" VerticalAlignment="Bottom" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -110,10 +136,10 @@
                     </Grid.RowDefinitions>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="8*"/>
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Id" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="0"/>
                         <TextBlock Text="Crest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
@@ -122,8 +148,30 @@
 
                     </Grid>
 
-                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="allTeamsListBox">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate >
+                        <DataTemplate>
+                            <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                        <ColumnDefinition Width="15*"/>
+                                        <ColumnDefinition Width="40*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding id}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Image Grid.Column="1" Source="{Binding crest}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding name}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding address}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
+
+                                </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                     </ListBox>
 
                     <Button Grid.Row="2" Content="Add team" Margin="250,10" Click="clickAddTeam" />

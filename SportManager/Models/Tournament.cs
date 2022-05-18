@@ -44,6 +44,7 @@ namespace SportManager.Models
             this.startDate = start;
             this.status = status;
             this.league = league;
+            this.teams = new Collection<Team>();
             this.cup = cup;
         }
 
