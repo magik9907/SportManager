@@ -9,6 +9,7 @@
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         Title="Create Tournament" Height="450" Width="800">
     <Grid>
+      
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="1*" ></RowDefinition>
@@ -19,7 +20,7 @@
             Create new Tournament
             </TextBlock>
         </DockPanel>
-        <Grid Grid.Row="1"  Margin="8 ,16">
+        <Grid Grid.Row="1" Name="FormGrid"  Margin="8 ,16">
             <Grid.RowDefinitions >
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -30,15 +31,15 @@
             </Grid.RowDefinitions>
             <StackPanel >
                 <Label FontSize="16">Title: </Label>
-                <TextBox   FontSize="16" Padding="2,4" ></TextBox>
+                <TextBox   FontSize="16" Padding="2,4" Text="{Binding title}"></TextBox>
             </StackPanel>
             <DockPanel Grid.Row="1">
                 <Label FontSize="16">Start date: </Label>
-                <xctk:DateTimePicker  FontSize="16" Padding="2,4" ></xctk:DateTimePicker>
+                <xctk:DateTimePicker  FontSize="16" Padding="2,4" Value="{Binding startDate}" ></xctk:DateTimePicker>
             </DockPanel>
             <DockPanel Grid.Row="2">
                 <Label FontSize="16">Status: </Label>
-                <TextBlock FontSize="16" VerticalAlignment="Center" FontWeight="Bold">Not started</TextBlock>
+                <TextBlock FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Status}"></TextBlock>
             </DockPanel>
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
@@ -48,12 +49,12 @@
                 </Grid.ColumnDefinitions>
 
                     <Label FontSize="16" Grid.Column="0">Game type:</Label>
-                <RadioButton Grid.Column="1" VerticalAlignment="Center">League</RadioButton>
-                <RadioButton Grid.Column="2" VerticalAlignment="Center">Cup</RadioButton>
+                <RadioButton GroupName="tournamentType" Grid.Column="1" IsChecked="True" Name="leagueOption" VerticalAlignment="Center" Click="ChangeTournamentType"  Content="League"></RadioButton>
+                <RadioButton GroupName="tournamentType" Grid.Column="2"  x:Name="cupOption" Click="ChangeTournamentType" Content="Cup" VerticalAlignment="Center"></RadioButton>
             </Grid>
             <DockPanel Grid.Row="4">
                 <Label FontSize="16" Grid.Column="0">Number of teams:</Label>
-                <xctk:IntegerUpDown Minimum="2"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Minimum="2" Value="{Binding numberOfTeams}"></xctk:IntegerUpDown>
             </DockPanel>
             <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
@@ -62,7 +63,7 @@
                 </Grid.RowDefinitions>
                 <Label FontSize="16">Description:</Label>
                 <TextBox Grid.Row="1" FontSize="16"
-                         
+                         Text="{Binding description}"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"
                     VerticalScrollBarVisibility="Visible"

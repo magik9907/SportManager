@@ -13,11 +13,13 @@ namespace SportManager.Models
         public int id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
-        public DateTime startDate { get; set; }
-        public TournamentStatus status { get; set; }
+        public DateTime startDate { get; set; } = DateTime.Now;
+        public TournamentStatus status { get; set; } = TournamentStatus.IN_PRROGRESS;
+        public string type = "League";
         public LeagueStanding league { get; set; }
         public CupStanding cup { get; set; }
         public Collection<Team> teams { get; set; }
+        public int numberOfTeams { get; set; }
 
         public String Status
         {

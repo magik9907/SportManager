@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,13 +20,32 @@ namespace SportManager
     /// </summary>
     public partial class CreateTournament : Window
     {
+        private Tournament tournament = new Tournament();
+        public Tournament Tournament { get { return tournament; } }
+
         public CreateTournament()
         {
             InitializeComponent();
+            FormGrid.DataContext = Tournament;
+
+
         }
 
         private void CreateClick(object sender, RoutedEventArgs e)
         {
+
+
+            switch (tournament.type)
+            {
+                case "League":
+                    tournament.league = new LeagueStanding();
+                    break;
+
+                case "Cup":
+                    tournament.cup = new CupStanding();
+                    break;
+
+            }
             DialogResult = true;
         }
 
@@ -34,5 +54,13 @@ namespace SportManager
             DialogResult = false;
         }
 
+        private void ChangeTournamentType(object sender, RoutedEventArgs e)
+        {
+            // ... Get RadioButton reference.
+            var button = sender as RadioButton;
+
+            // ... Display button content as title.
+            this.tournament.type = button.Content.ToString();
+        }
     }
 }

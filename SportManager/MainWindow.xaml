@@ -50,6 +50,7 @@
             
 
             <ListBox Name="tournametsList" Margin="10" Grid.Row="1" SelectionMode="Single" SelectionChanged="showTournament">
+
                 <ListBox.ItemTemplate >
                     <DataTemplate >
                         <Grid>

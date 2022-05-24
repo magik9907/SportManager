@@ -18,54 +18,44 @@ using System.Collections.ObjectModel;
 
 namespace SportManager
 {
+
+
+
     public partial class MainWindow : Window
     {
-        private List<Tournament> tournaments = new List<Tournament>();
         public Collection<Team> teams = new Collection<Team>();
-
+        public ViewModel tournaments = new ViewModel();
         public MainWindow()
         {
             InitializeComponent();
-            tournametsList.ItemsSource = tournaments;
+            tournametsList.ItemsSource = tournaments.tournaments;
 
             //TODO delete mock
-
-            CupStanding cup = new CupStanding();
-            cup.mock();
-
-            LeagueStanding league = new LeagueStanding();
-
-            league.mock();
-
-            tournaments.AddRange(new[] {
-                new Tournament(1, "Tournament 1", DateTime.Parse("2022-01-11"), TournamentStatus.NOT_STARTED,league,cup),
-        new Tournament(2, "Tournament 2", DateTime.Parse("2022-11-22"), TournamentStatus.IN_PRROGRESS,league,cup),
-        new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), TournamentStatus.NOT_STARTED,league,cup),
-        new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), TournamentStatus.DONE,league,cup),
-        new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), TournamentStatus.NOT_STARTED,league,cup)
-       });
 
             teams.Add(
                 new Team(1, "FC Barcelona", "C. d'Arístides Maillol", "12", "08028", "Barcelona"));
             teams.Add(
                 new Team(2, "Bayern Monachium", "Werner-Heisenberg-Allee", "25", "80939 ", "München"));
-           
+
 
         }
 
         private void Create_Tournament(object sender, RoutedEventArgs e)
         {
             CreateTournament create = new CreateTournament();
-            if(true == create.ShowDialog())
+            if (true == create.ShowDialog())
             {
+                var btn = sender as Button;
 
+              tournaments.tournaments.Add(create.Tournament);
             }
         }
-     
+
 
         private void showTournament(object sender, SelectionChangedEventArgs e)
         {
-            Tournament tournament = tournaments.ElementAt(tournametsList.SelectedIndex);
+            var btn = sender as Button;
+            Tournament tournament = (btn.DataContext as ViewModel).tournaments.ElementAt(tournametsList.SelectedIndex);
             TournamentDetails tournamentDetails = new TournamentDetails(tournament, teams);
             if (true == tournamentDetails.ShowDialog())
             {
@@ -77,13 +67,37 @@ namespace SportManager
             CreateTeam createTeam = new CreateTeam();
             createTeam.Title = "Create a new team";
             createTeam.Owner = this;
-            if(true == createTeam.ShowDialog())
+            if (true == createTeam.ShowDialog())
             {
                 Console.WriteLine("\n tworenie nowego zsespolu");
-                Team team = new Team(teams.Count()+1, createTeam.nameBox.Text, createTeam.streetNameBox.Text, createTeam.streetNumberBox.Text, createTeam.postalCodeBox.Text, createTeam.cityBox.Text, createTeam.imgPhoto.Source);
+                Team team = new Team(teams.Count() + 1, createTeam.nameBox.Text, createTeam.streetNameBox.Text, createTeam.streetNumberBox.Text, createTeam.postalCodeBox.Text, createTeam.cityBox.Text, createTeam.imgPhoto.Source);
                 teams.Add(team);
             }
-           
+
+        }
+
+        public class ViewModel
+        {
+            public ObservableCollection<Tournament> tournaments { get; private set; }
+            public ViewModel()
+            {
+                this.tournaments = new ObservableCollection<Tournament>();
+
+                //TODO delete mock
+                CupStanding cup = new CupStanding();
+                cup.mock();
+
+                LeagueStanding league = new LeagueStanding();
+
+                league.mock();
+                tournaments.Add(
+                    new Tournament(1, "Tournament 1", DateTime.Parse("2022-01-11"), TournamentStatus.NOT_STARTED, league, cup));
+                tournaments.Add(new Tournament(2, "Tournament 2", DateTime.Parse("2022-11-22"), TournamentStatus.IN_PRROGRESS, league, cup));
+                tournaments.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), TournamentStatus.NOT_STARTED, league, cup));
+                tournaments.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), TournamentStatus.DONE, league, cup));
+                tournaments.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), TournamentStatus.NOT_STARTED, league, cup));
+
+            }
         }
     }
 }
