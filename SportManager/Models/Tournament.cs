@@ -14,7 +14,7 @@ namespace SportManager.Models
         public string title { get; set; }
         public string description { get; set; }
         public DateTime startDate { get; set; } = DateTime.Now;
-        public TournamentStatus status { get; set; } = TournamentStatus.IN_PRROGRESS;
+        public TournamentStatus status { get; set; } = TournamentStatus.NOT_STARTED;
         public string type = "League";
         public LeagueStanding league { get; set; }
         public CupStanding cup { get; set; }

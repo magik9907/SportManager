@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SportManager"
         mc:Ignorable="d"
         Title="TournamentDetails" Height="450" Width="800">
-    
+
     <Grid>
         <Grid.Resources>
 
@@ -17,12 +17,16 @@
             <RowDefinition Height="90*"/>
         </Grid.RowDefinitions>
         <DockPanel>
-            <TextBlock x:Name="title" Text="Tournament Name" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock x:Name="title" Text="Tournament Name" FontSize="20"  DockPanel.Dock="Left"  />
+            <Grid >
+                <Button x:Name="startTournament" Click="startTournament_Click">Start tournament</Button>
+                <Button x:Name="endTournament" Click="endTournament_Click">End tournament</Button>
+            </Grid>
         </DockPanel>
-        
+
         <TabControl Grid.Row="1"  TabStripPlacement="Right" HorizontalContentAlignment="Right" >
 
-            <TabItem Header="Matches">
+            <TabItem Header="Matches" x:Name="matches">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -30,13 +34,13 @@
                     </Grid.RowDefinitions>
                     <TextBlock  Text="Matches" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center"></TextBlock>
                     <ListBox Grid.Row="1">
-                        
+
                     </ListBox>
                 </Grid>
 
             </TabItem>
 
-            <TabItem Header="Standing">
+            <TabItem Header="Standing" x:Name="standing">
                 <DataGrid AutoGenerateColumns="False" IsReadOnly="True"  x:Name="leagueStandingView">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="L.P." Binding="{Binding lp}"/>
@@ -59,15 +63,15 @@
                         <DataGridTextColumn Header="Goals against" Binding="{Binding goal_against}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
             </TabItem>
-            <TabItem Header="Cup" >
+            <TabItem Header="Cup" x:Name="cup">
                 <ScrollViewer x:Name="CupView"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                   
+
                 </ScrollViewer>
 
             </TabItem>
-            <TabItem Header="Staticstics">
+            <TabItem Header="Staticstics" x:Name="statistic">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -79,7 +83,7 @@
                     </ListBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Participating teams" >
+            <TabItem Header="Participating teams" x:Name="participants">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -105,29 +109,29 @@
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             </Style>
-                            </ListBox.ItemContainerStyle>
-                            <ListBox.ItemTemplate >
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5*"/>
-                                            <ColumnDefinition Width="8*"/>
-                                            <ColumnDefinition Width="15*"/>
-                                            <ColumnDefinition Width="40*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding id}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <Image Grid.Column="1" Source="{Binding crest}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding name}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="3" Text="{Binding address}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate >
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                        <ColumnDefinition Width="15*"/>
+                                        <ColumnDefinition Width="40*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding id}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Image Grid.Column="1" Source="{Binding crest}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding name}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding address}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
 
                     <Button Grid.Row="2" Content="Remove team" Margin="250,10" Click="clickRemoveTeam"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Add team" Height="20" VerticalAlignment="Bottom" >
+            <TabItem Header="Add team" x:Name="add" Height="20" VerticalAlignment="Bottom" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -155,8 +159,8 @@
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate >
-                        <DataTemplate>
-                            <Grid>
+                            <DataTemplate>
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="5*"/>
                                         <ColumnDefinition Width="8*"/>
@@ -170,8 +174,8 @@
 
 
                                 </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
 
                     <Button Grid.Row="2" Content="Add team" Margin="250,10" Click="clickAddTeam" />

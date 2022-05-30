@@ -31,9 +31,9 @@ namespace SportManager
             this.tournament = tournament;
             this.title.Text = tournament.title;
             this.teams = new Collection<Team>();
-            foreach(Team team in teams)
+            foreach (Team team in teams)
             {
-                if(!tournament.teams.Contains(team))
+                if (tournament.teams != null &&!tournament.teams.Contains(team))
                 {
                     this.teams.Add(team);
                 }
@@ -41,8 +41,58 @@ namespace SportManager
             leagueStandingView.ItemsSource = tournament.league.rank;
             allTeamsListBox.ItemsSource = this.teams;
             participatingTeamsListBox.ItemsSource = tournament.teams;
-            buildCupView();
+            if(tournament.type=="Cup")
+               buildCupView();
+            stateInitWindow();
+        }
 
+        public void stateInitWindow()
+        {
+            switch (tournament.status)
+            {
+                case Models.enums.TournamentStatus.NOT_STARTED:
+                    matches.Visibility = Visibility.Hidden;
+                    standing.Visibility = Visibility.Hidden;
+                    cup.Visibility = Visibility.Hidden;
+                    statistic.Visibility = Visibility.Hidden;
+                    participants.Visibility = Visibility.Visible;
+                    add.Visibility = Visibility.Visible;
+                    startTournament.Visibility = Visibility.Visible;
+                    endTournament.Visibility = Visibility.Hidden;
+                    break;
+                case Models.enums.TournamentStatus.IN_PRROGRESS:
+                    if (tournament.type == "cup")
+                    {
+                        matches.Visibility = Visibility.Visible;
+                        standing.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        cup.Visibility = Visibility.Visible;
+                    }
+                    statistic.Visibility = Visibility.Visible;
+                    participants.Visibility = Visibility.Visible;
+                    add.Visibility = Visibility.Hidden;
+                    endTournament.Visibility = Visibility.Visible;
+                    startTournament.Visibility = Visibility.Hidden;
+                    break;
+                case Models.enums.TournamentStatus.DONE:
+                    if (tournament.type == "League")
+                    {
+                        matches.Visibility = Visibility.Visible;
+                        standing.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        cup.Visibility = Visibility.Visible;
+                    }
+                    statistic.Visibility = Visibility.Visible;
+                    participants.Visibility = Visibility.Visible;
+                    add.Visibility = Visibility.Hidden;
+                    startTournament.Visibility = Visibility.Hidden;
+                    endTournament.Visibility = Visibility.Hidden;
+                    break;
+            }
         }
 
         public void buildCupView()
@@ -120,14 +170,15 @@ namespace SportManager
                     LinearGradientBrush winnerBG = new LinearGradientBrush();
                     winnerBG.StartPoint = new Point(0, 0);
                     winnerBG.EndPoint = new Point(1, 1);
-                    if ((match == null || match.guest == null || match.host == null)) {
+                    if ((match == null || match.guest == null || match.host == null))
+                    {
                         GradientStop defaultBG = new GradientStop();
                         defaultBG.Color = Colors.LightSteelBlue;
                         defaultBG.Offset = 0.0;
                         winnerBG.GradientStops.Add(defaultBG);
                     }
-                    else 
-                    if ( match.guest_goal > match.host_goal)
+                    else
+                    if (match.guest_goal > match.host_goal)
                     {
                         GradientStop red = new GradientStop();
                         red.Color = Colors.Red;
@@ -189,6 +240,18 @@ namespace SportManager
             participatingTeamsListBox.Items.Refresh();
             allTeamsListBox.Items.Refresh();
 
+        }
+
+        private void startTournament_Click(object sender, RoutedEventArgs e)
+        {
+            tournament.status = Models.enums.TournamentStatus.IN_PRROGRESS;
+            stateInitWindow();
+        }
+
+        private void endTournament_Click(object sender, RoutedEventArgs e)
+        {
+            tournament.status = Models.enums.TournamentStatus.DONE;
+            stateInitWindow();
         }
     }
 }

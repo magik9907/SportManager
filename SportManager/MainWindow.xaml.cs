@@ -54,8 +54,8 @@ namespace SportManager
 
         private void showTournament(object sender, SelectionChangedEventArgs e)
         {
-            var btn = sender as Button;
-            Tournament tournament = (btn.DataContext as ViewModel).tournaments.ElementAt(tournametsList.SelectedIndex);
+            var btn = sender as ListBox;
+            Tournament tournament = (Tournament)btn.SelectedItem;
             TournamentDetails tournamentDetails = new TournamentDetails(tournament, teams);
             if (true == tournamentDetails.ShowDialog())
             {
