@@ -39,8 +39,9 @@ namespace SportManager.Models
         {
         }
 
-        public Tournament(int id, string title, DateTime start, TournamentStatus status,LeagueStanding league,CupStanding cup)
+        public Tournament(int id, string title, DateTime start,int numberOfTeams, TournamentStatus status,LeagueStanding league,CupStanding cup,string type)
         {
+            this.type = type;
             this.id = id;
             this.title = title;
             this.startDate = start;
@@ -48,7 +49,24 @@ namespace SportManager.Models
             this.league = league;
             this.teams = new Collection<Team>();
             this.cup = cup;
+            this.numberOfTeams = numberOfTeams;
         }
+
+        public void startTournament()
+        {
+            status = TournamentStatus.IN_PRROGRESS;
+
+            if (type == "Cup")
+            {
+                cup.start(teams);
+            }
+            else
+            {
+                league.start(teams);
+            }
+        }
+
+        
 
 
     }

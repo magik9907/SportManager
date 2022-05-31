@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace SportManager.Models
         public List<Match> matches { get; set; } = new List<Match>();
 
         public CupRound() { }
+
     }
 
     public class CupStanding
@@ -24,6 +26,13 @@ namespace SportManager.Models
          * quarte-finals = round 1/4 for index 2 (2^2)=4 ... etc.
          */
         public List<CupRound> cupRound { get; set; }
+
+
+        public void start(Collection<Team> teams)
+        {
+            int numberOfTeams = teams.Count;
+
+        }
 
         //Example data
         public void mock()
@@ -233,4 +242,6 @@ namespace SportManager.Models
 
         }
     }
+
+   
 }

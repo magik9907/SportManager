@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace SportManager.Models
 {
@@ -20,6 +21,11 @@ namespace SportManager.Models
             public int loose { get; set; }
             public int goal_for { get; set; }
             public int goal_against { get; set; }
+
+        }
+
+        public void start(Collection<Team> teams)
+        {
 
         }
 

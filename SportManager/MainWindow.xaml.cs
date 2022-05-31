@@ -91,11 +91,11 @@ namespace SportManager
 
                 league.mock();
                 tournaments.Add(
-                    new Tournament(1, "Tournament 1", DateTime.Parse("2022-01-11"), TournamentStatus.NOT_STARTED, league, cup));
-                tournaments.Add(new Tournament(2, "Tournament 2", DateTime.Parse("2022-11-22"), TournamentStatus.IN_PRROGRESS, league, cup));
-                tournaments.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), TournamentStatus.NOT_STARTED, league, cup));
-                tournaments.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), TournamentStatus.DONE, league, cup));
-                tournaments.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), TournamentStatus.NOT_STARTED, league, cup));
+                    new Tournament(1, "Tournament 1", DateTime.Parse("2022-01-11"), 4, TournamentStatus.NOT_STARTED, league, cup,"Cup"));
+                tournaments.Add(new Tournament(2, "Tournament 2", DateTime.Parse("2022-11-22"), 4,TournamentStatus.IN_PRROGRESS, league, cup, "League"));
+                tournaments.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
+                tournaments.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), 4, TournamentStatus.DONE, league, cup, "Cup"));
+                tournaments.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
 
             }
         }

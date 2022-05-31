@@ -21,8 +21,6 @@ namespace SportManager.Models
 
         public string streetName { get; set; }
        
-            
-       
         public string streetNumber { get; set; }
 
         public string city { get; set; }

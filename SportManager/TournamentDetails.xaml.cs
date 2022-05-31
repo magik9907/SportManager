@@ -33,7 +33,7 @@ namespace SportManager
             this.teams = new Collection<Team>();
             foreach (Team team in teams)
             {
-                if (tournament.teams != null &&!tournament.teams.Contains(team))
+                if (tournament.teams != null && !tournament.teams.Contains(team))
                 {
                     this.teams.Add(team);
                 }
@@ -41,8 +41,8 @@ namespace SportManager
             leagueStandingView.ItemsSource = tournament.league.rank;
             allTeamsListBox.ItemsSource = this.teams;
             participatingTeamsListBox.ItemsSource = tournament.teams;
-            if(tournament.type=="Cup")
-               buildCupView();
+            if (tournament.type == "Cup")
+                buildCupView();
             stateInitWindow();
         }
 
@@ -244,7 +244,19 @@ namespace SportManager
 
         private void startTournament_Click(object sender, RoutedEventArgs e)
         {
-            tournament.status = Models.enums.TournamentStatus.IN_PRROGRESS;
+            if (tournament.teams.Count() > tournament.numberOfTeams)
+            {
+                MessageBox.Show("Number of teams in tournament is to large", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (tournament.teams.Count() < 2)
+            {
+                MessageBox.Show("Number of teams in tournament is insufficient ", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            tournament.startTournament();
+            if (tournament.type == "Cup")
+                buildCupView();
             stateInitWindow();
         }
 
