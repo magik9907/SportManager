@@ -18,7 +18,7 @@ namespace SportManager.Models
         public string type = "League";
         public LeagueStanding league { get; set; }
         public CupStanding cup { get; set; }
-        public Collection<Team> teams { get; set; }
+        public Collection<Team> teams { get; set; } = new Collection<Team>();
         public int numberOfTeams { get; set; }
 
         public String Status

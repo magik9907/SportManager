@@ -37,6 +37,9 @@ namespace SportManager
             teams.Add(
                 new Team(2, "Bayern Monachium", "Werner-Heisenberg-Allee", "25", "80939 ", "München"));
 
+            teams.Add(
+                new Team(3, "Jagielonia", "Stadion miejscki", "25", "80939 ", "Białystok"));
+
 
         }
 

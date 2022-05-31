@@ -38,11 +38,10 @@ namespace SportManager
                     this.teams.Add(team);
                 }
             }
-            leagueStandingView.ItemsSource = tournament.league.rank;
+
             allTeamsListBox.ItemsSource = this.teams;
             participatingTeamsListBox.ItemsSource = tournament.teams;
-            if (tournament.type == "Cup")
-                buildCupView();
+
             stateInitWindow();
         }
 
@@ -61,14 +60,16 @@ namespace SportManager
                     endTournament.Visibility = Visibility.Hidden;
                     break;
                 case Models.enums.TournamentStatus.IN_PRROGRESS:
-                    if (tournament.type == "cup")
+                    if (tournament.type == "Cup")
                     {
-                        matches.Visibility = Visibility.Visible;
-                        standing.Visibility = Visibility.Visible;
+                        buildCupView();
+                        cup.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        cup.Visibility = Visibility.Visible;
+                        leagueStandingView.ItemsSource = tournament.league.rank;
+                        matches.Visibility = Visibility.Visible;
+                        standing.Visibility = Visibility.Visible;
                     }
                     statistic.Visibility = Visibility.Visible;
                     participants.Visibility = Visibility.Visible;
@@ -170,7 +171,7 @@ namespace SportManager
                     LinearGradientBrush winnerBG = new LinearGradientBrush();
                     winnerBG.StartPoint = new Point(0, 0);
                     winnerBG.EndPoint = new Point(1, 1);
-                    if ((match == null || match.guest == null || match.host == null))
+                    if (match == null || match.guest == null || match.host == null)
                     {
                         GradientStop defaultBG = new GradientStop();
                         defaultBG.Color = Colors.LightSteelBlue;
@@ -255,8 +256,6 @@ namespace SportManager
                 return;
             }
             tournament.startTournament();
-            if (tournament.type == "Cup")
-                buildCupView();
             stateInitWindow();
         }
 

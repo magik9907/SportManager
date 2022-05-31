@@ -25,13 +25,42 @@ namespace SportManager.Models
          * semi-finals = round 1/2 for index 1 (2^1)=2
          * quarte-finals = round 1/4 for index 2 (2^2)=4 ... etc.
          */
-        public List<CupRound> cupRound { get; set; }
+        public List<CupRound> cupRound { get; set; } = new List<CupRound>();
 
 
         public void start(Collection<Team> teams)
         {
+            var random = new Random();
             int numberOfTeams = teams.Count;
+            CupRound round = null;
 
+            for(int i = 0; i <Math.Floor(Math.Sqrt(numberOfTeams));i++)
+            {
+                round = new CupRound();
+                cupRound.Add(round);
+            }
+                round = new CupRound();
+            var teamsIndexes = Enumerable.Range(0, numberOfTeams).ToList();
+            for (int i = 0; i < Math.Floor((double)numberOfTeams / 2); i++)
+            {
+                var match = new Match();
+
+                int rand = random.Next(0, teamsIndexes.Count());
+                match.host = teams[teamsIndexes[rand]];
+                teamsIndexes.RemoveAt(rand);
+                rand = random.Next(0, teamsIndexes.Count());
+                match.guest = teams[teamsIndexes[rand]];
+                teamsIndexes.RemoveAt(rand);
+                round.matches.Add(match);
+
+            }
+
+            if (teamsIndexes.Count == 1) { 
+                var match = new Match();
+                match.host = teams[teamsIndexes[0]];
+                round.matches.Add(match);
+            }
+            cupRound.Add(round);
         }
 
         //Example data
