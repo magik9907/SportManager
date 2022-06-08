@@ -161,13 +161,21 @@ namespace SportManager
                         );
                     }
                     matchDesc.HorizontalAlignment = HorizontalAlignment.Center;
+                    
+                    MatchButton btn = new MatchButton();
+                    btn.match = match;
+                    btn.Content = matchDesc;
+                    btn.BorderThickness = new Thickness(0);
+                    btn.Background = Brushes.Transparent;
+                    btn.AddHandler(Button.ClickEvent, new RoutedEventHandler(showCupMatch));
+
                     Border border = new Border();
-                    border.Child = matchDesc;
+                    border.Child = btn;
                     border.BorderThickness = new Thickness(3);
                     border.BorderBrush = Brushes.Black;
                     border.Padding = new Thickness(20, 10, 20, 10);
                     border.Padding = new Thickness(20, 10, 20, 10);
-
+                   
                     LinearGradientBrush winnerBG = new LinearGradientBrush();
                     winnerBG.StartPoint = new Point(0, 0);
                     winnerBG.EndPoint = new Point(1, 1);
@@ -263,6 +271,19 @@ namespace SportManager
         {
             tournament.status = Models.enums.TournamentStatus.DONE;
             stateInitWindow();
+        }
+
+        private void showCupMatch(object sender,RoutedEventArgs e)
+        {
+            Match m = ((MatchButton)sender).match;
+            MatchDetails matchDetails = new MatchDetails();
+            matchDetails.match = m;
+           if(true == matchDetails.ShowDialog()) { }
+        }
+
+        public class MatchButton : Button
+        {
+            public Match match { get; set; }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace SportManager
     /// </summary>
     public partial class MatchDetails : Window
     {
+        public Match match { get; set; } 
         public MatchDetails()
         {
             InitializeComponent();
