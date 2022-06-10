@@ -140,34 +140,26 @@ namespace SportManager
 
                 for (int y = 0; y < Math.Pow(2, i); y++)
                 {
+
+                    int r = i;
+                    int m = y;
                     Match match = null;
                     if (y < matches.Count)
                         match = matches[y];
                     TextBlock matchDesc = new TextBlock();
-                    if (match == null)
-                        matchDesc.Text = "No match";
-                    else
-                    {
-                        matchDesc.Text = String.Concat((match.host != null)
-                            ? (match.host.name
-                            + " ["
-                            + match.host_goal)
-                            : ("No team [-"), ":", (
-                            (match.guest != null)
-                            ? (match.guest_goal
-                            + "] "
-                            + match.guest.name)
-                            : "-] No Team")
-                        );
-                    }
-                    matchDesc.HorizontalAlignment = HorizontalAlignment.Center;
-                    
+                    setCupMatchContent(match, matchDesc);
+                    if (match != null && match.host != null && match.guest != null)
+                        matchDesc.HorizontalAlignment = HorizontalAlignment.Center;
+
                     MatchButton btn = new MatchButton();
                     btn.match = match;
                     btn.Content = matchDesc;
                     btn.BorderThickness = new Thickness(0);
                     btn.Background = Brushes.Transparent;
-                    btn.AddHandler(Button.ClickEvent, new RoutedEventHandler(showCupMatch));
+                    btn.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+                    {
+                        showCupMatch(sender, e, r, m, grid);
+                    }));
 
                     Border border = new Border();
                     border.Child = btn;
@@ -175,52 +167,9 @@ namespace SportManager
                     border.BorderBrush = Brushes.Black;
                     border.Padding = new Thickness(20, 10, 20, 10);
                     border.Padding = new Thickness(20, 10, 20, 10);
-                   
-                    LinearGradientBrush winnerBG = new LinearGradientBrush();
-                    winnerBG.StartPoint = new Point(0, 0);
-                    winnerBG.EndPoint = new Point(1, 1);
-                    if (match == null || match.guest == null || match.host == null)
-                    {
-                        GradientStop defaultBG = new GradientStop();
-                        defaultBG.Color = Colors.LightSteelBlue;
-                        defaultBG.Offset = 0.0;
-                        winnerBG.GradientStops.Add(defaultBG);
-                    }
-                    else
-                    if (match.guest_goal > match.host_goal)
-                    {
-                        GradientStop red = new GradientStop();
-                        red.Color = Colors.Red;
-                        red.Offset = 0.0;
-                        winnerBG.GradientStops.Add(red);
-                        GradientStop green = new GradientStop();
-                        green.Color = Colors.Green;
-                        green.Offset = 1;
-                        winnerBG.GradientStops.Add(green);
-                        matchDesc.Foreground = Brushes.White;
-                    }
-                    else
-                    if (match.guest_goal < match.host_goal)
-                    {
 
-                        GradientStop red = new GradientStop();
-                        red.Color = Colors.Red;
-                        red.Offset = 1.0;
-                        winnerBG.GradientStops.Add(red);
-                        GradientStop green = new GradientStop();
-                        green.Color = Colors.Green;
-                        green.Offset = 0;
-                        winnerBG.GradientStops.Add(green);
-                        matchDesc.Foreground = Brushes.White;
-                    }
-                    else
-                    {
-                        GradientStop defaultBG = new GradientStop();
-                        defaultBG.Color = Colors.LightBlue;
-                        defaultBG.Offset = 0.0;
-                        winnerBG.GradientStops.Add(defaultBG);
-                    }
-                    border.Background = winnerBG;
+
+                    border.Background = defineMatchGradient(match, matchDesc);
                     Grid.SetRow(border, rounds - i - 1);
                     Grid.SetColumn(border, actualColumnNumberToSpan * y + 1);
                     Grid.SetColumnSpan(border, actualColumnNumberToSpan);
@@ -273,12 +222,113 @@ namespace SportManager
             stateInitWindow();
         }
 
-        private void showCupMatch(object sender,RoutedEventArgs e)
+        private void showCupMatch(object sender, RoutedEventArgs e, int round, int matchNumber, Grid grid)
         {
-            Match m = ((MatchButton)sender).match;
+            MatchButton matchBtn = (MatchButton)sender;
+            Match m = (matchBtn).match;
             MatchDetails matchDetails = new MatchDetails();
             matchDetails.match = m;
-           if(true == matchDetails.ShowDialog()) { }
+            if (true == matchDetails.ShowDialog() && m.winner != null)
+            {
+                Border parent = (Border)matchBtn.Parent;
+                TextBlock matchDesc = (TextBlock)matchBtn.Content;
+                if (round > 0)
+                {
+                    bool isAsHost = matchNumber % 2 == 0;
+                    int matchNumberInNextRound = (int)Math.Floor((double)matchNumber / 2);
+                    int matchIndex = 0;
+                    for (int i = tournament.cup.cupRound.Count - 1; i >= round - 1; i--)
+                    {
+                        matchIndex += 1;
+                        if (i == 0) matchIndex += 1;
+                        else
+                            matchIndex += ((int)Math.Pow(2, i));
+                    }
+                    matchIndex += (matchNumberInNextRound - 1);
+                    Match newMatch = tournament.cup.cupRound[round - 1].matches[matchNumberInNextRound];
+                    Border nextMatch = (Border)grid.Children[matchIndex];
+                    if (isAsHost)
+                        newMatch.host = !m.winner ? m.guest : m.host;
+                    else
+                        newMatch.guest = !m.winner ? m.guest : m.host;
+
+                    parent.Background = defineMatchGradient(newMatch, matchDesc);
+                    nextMatch.Background = defineMatchGradient(newMatch, matchDesc);
+                    setCupMatchContent(newMatch, ((TextBlock)(((Button)(((Border)nextMatch).Child)).Content)));
+                }
+                parent.Background = defineMatchGradient(m, matchDesc);
+                setCupMatchContent(m, ((TextBlock)(matchBtn.Content)));
+
+            }
+        }
+
+        private LinearGradientBrush defineMatchGradient(Match match, TextBlock matchDesc)
+        {
+            LinearGradientBrush winnerBG = new LinearGradientBrush();
+            winnerBG.StartPoint = new Point(0, 0);
+            winnerBG.EndPoint = new Point(1, 1);
+            if (match == null || match.guest == null || match.host == null)
+            {
+                GradientStop defaultBG = new GradientStop();
+                defaultBG.Color = Colors.LightSteelBlue;
+                defaultBG.Offset = 0.0;
+                winnerBG.GradientStops.Add(defaultBG);
+            }
+            else
+            if (match.guest_goal > match.host_goal)
+            {
+                GradientStop red = new GradientStop();
+                red.Color = Colors.Red;
+                red.Offset = 0.0;
+                winnerBG.GradientStops.Add(red);
+                GradientStop green = new GradientStop();
+                green.Color = Colors.Green;
+                green.Offset = 1;
+                winnerBG.GradientStops.Add(green);
+                matchDesc.Foreground = Brushes.White;
+            }
+            else
+            if (match.guest_goal < match.host_goal)
+            {
+
+                GradientStop red = new GradientStop();
+                red.Color = Colors.Red;
+                red.Offset = 1.0;
+                winnerBG.GradientStops.Add(red);
+                GradientStop green = new GradientStop();
+                green.Color = Colors.Green;
+                green.Offset = 0;
+                winnerBG.GradientStops.Add(green);
+                matchDesc.Foreground = Brushes.White;
+            }
+            else
+            {
+                GradientStop defaultBG = new GradientStop();
+                defaultBG.Color = Colors.LightBlue;
+                defaultBG.Offset = 0.0;
+                winnerBG.GradientStops.Add(defaultBG);
+            }
+            return winnerBG;
+        }
+
+        private void setCupMatchContent(Match match, TextBlock matchDesc)
+        {
+            if (match == null)
+                matchDesc.Text = "No match";
+            else
+            {
+                matchDesc.Text = String.Concat((match.host != null)
+                    ? (match.host.name
+                    + " ["
+                    + match.host_goal)
+                    : ("No team [-"), ":", (
+                    (match.guest != null)
+                    ? (match.guest_goal
+                    + "] "
+                    + match.guest.name)
+                    : "-] No Team")
+                );
+            }
         }
 
         public class MatchButton : Button

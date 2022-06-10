@@ -56,7 +56,9 @@ namespace SportManager
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
-            Close();
+            match.guest_goal = 3;
+            match.host_goal = 0;
+            match.winner = false;
         }
     }
 }
