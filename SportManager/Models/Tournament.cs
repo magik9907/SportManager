@@ -21,6 +21,7 @@ namespace SportManager.Models
         public Collection<Team> teams { get; set; } = new Collection<Team>();
         public int numberOfTeams { get; set; }
 
+
         public String Status
         {
             get
@@ -52,7 +53,7 @@ namespace SportManager.Models
             this.numberOfTeams = numberOfTeams;
         }
 
-        public void startTournament()
+        public void startTournament(System.Windows.Controls.ListBox matchesListbox)
         {
             status = TournamentStatus.IN_PRROGRESS;
 
@@ -62,7 +63,7 @@ namespace SportManager.Models
             }
             else
             {
-                league.start(teams);
+                league.start(teams, matchesListbox);
             }
         }
 

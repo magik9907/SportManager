@@ -10,6 +10,7 @@ namespace SportManager.Models
     public class LeagueStanding
     {
         public List<TeamStats> rank { get; set; } = new List<TeamStats>();
+        public Collection<Match> matches { get; set; } = new Collection<Match>();
 
         public class TeamStats
         {
@@ -24,9 +25,27 @@ namespace SportManager.Models
 
         }
 
-        public void start(Collection<Team> teams)
+        public void start(Collection<Team> teams, System.Windows.Controls.ListBox matchesListBox)
         {
+           for (int i = 0; i < teams.Count; i++)
+            {
+               for(int j = 0; j < teams.Count; j++)
+                {
+                    if (i<j)
+                    {
+                        matches.Add(new Match { guest = teams.ElementAt(j), host = teams.ElementAt(i) });
+                        matches.Add(new Match { guest = teams.ElementAt(i), host = teams.ElementAt(j) });
+                        System.Diagnostics.Debug.WriteLine(teams.ElementAt(j).name + " vs " + teams.ElementAt(i).name);
+                        System.Diagnostics.Debug.WriteLine(teams.ElementAt(i).name + " vs " + teams.ElementAt(j).name);
+                    }
+                }
+               
+                
+            }
+            matchesListBox.ItemsSource = matches;
+            System.Diagnostics.Debug.WriteLine(teams.Count);
 
+            
         }
 
 

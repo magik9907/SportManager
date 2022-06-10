@@ -255,7 +255,7 @@ namespace SportManager
                 MessageBox.Show("Number of teams in tournament is insufficient ", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            tournament.startTournament();
+            tournament.startTournament(matchesListBox);
             stateInitWindow();
         }
 
