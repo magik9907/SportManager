@@ -50,7 +50,7 @@ namespace SportManager
             {
                 var btn = sender as Button;
 
-              tournaments.tournaments.Add(create.Tournament);
+                tournaments.addTournament(create.Tournament, tournamentName.Text, sort.Text,selectActive.IsChecked);
             }
         }
 
@@ -81,11 +81,12 @@ namespace SportManager
 
         public class ViewModel
         {
+            private Collection<Tournament> tournamentsCopy { get; set; }
             public ObservableCollection<Tournament> tournaments { get; private set; }
             public ViewModel()
             {
                 this.tournaments = new ObservableCollection<Tournament>();
-
+                tournamentsCopy = new Collection<Tournament>();
                 //TODO delete mock
                 CupStanding cup = new CupStanding();
                 cup.mock();
@@ -93,14 +94,75 @@ namespace SportManager
                 LeagueStanding league = new LeagueStanding();
 
                 league.mock();
-                tournaments.Add(
-                    new Tournament(1, "Tournament 1", DateTime.Parse("2022-01-11"), 4, TournamentStatus.NOT_STARTED, null, new CupStanding(),"Cup"));
-                tournaments.Add(new Tournament(2, "Tournament 2", DateTime.Parse("2022-11-22"), 4,TournamentStatus.IN_PRROGRESS, league, cup, "League"));
-                tournaments.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
-                tournaments.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), 4, TournamentStatus.DONE, league, cup, "Cup"));
-                tournaments.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
+                tournamentsCopy.Add(
+                    new Tournament(1, "Tournament 1", DateTime.Parse("2022-01-11"), 4, TournamentStatus.NOT_STARTED, null, new CupStanding(), "Cup"));
+                tournamentsCopy.Add(new Tournament(2, "Tournament 2", DateTime.Parse("2022-11-22"), 4, TournamentStatus.IN_PRROGRESS, league, cup, "League"));
+                tournamentsCopy.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
+                tournamentsCopy.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), 4, TournamentStatus.DONE, league, cup, "Cup"));
+                tournamentsCopy.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
+                filter("", "Start date - descending", false);
+            }
+
+            public void filter(String title, string sort, bool? onlyActive)
+            {
+                tournaments.Clear();
+                List<Tournament> list;
+                if (title == "") list = tournamentsCopy.ToList();
+                else
+                    list = tournamentsCopy.Where(x => (title == "" || x.title.Contains(title))).ToList();
+                if (onlyActive == true)
+                    list = tournamentsCopy.Where(x => x.status == TournamentStatus.IN_PRROGRESS).ToList();
+                sortList(list, sort).ForEach(x => tournaments.Add(x));
+            }
+
+
+            private List<Tournament> sortList(List<Tournament> t, string s)
+            {
+
+                switch (s)
+                {
+                    case "Start date - descending": return t.OrderBy(x => x.startDate).ToList();
+
+                    case "Start date - ascending": return t.OrderByDescending(x => x.startDate).ToList();
+
+                    case "Status - ascending": return t.OrderByDescending(x => x.status).ToList();
+
+                    case "Status - descending": return t.OrderBy(x => x.status).ToList();
+                }
+
+                return t;
 
             }
+
+            public void addTournament(Tournament t, String title, string sort,bool? onlyActive)
+            {
+                tournamentsCopy.Add(t);
+                filter(title, sort, onlyActive);
+
+            }
+
         }
+
+        private void filter()
+        {
+            tournaments.filter(tournamentName != null ? tournamentName.Text : "", sort.Text, selectActive == null ? false : selectActive.IsChecked);
+        }
+
+        private void Sort(object sender, RoutedEventArgs e)
+        {
+            filter();
+        }
+
+        private void SelectActive(object sender, RoutedEventArgs e)
+        {
+            filter();
+        }
+
+        private void TournamentTitleChange(object sender, RoutedEventArgs e)
+        {
+            filter();
+        }
+
+
     }
 }
