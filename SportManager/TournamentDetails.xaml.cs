@@ -226,9 +226,12 @@ namespace SportManager
         {
             MatchButton matchBtn = (MatchButton)sender;
             Match m = (matchBtn).match;
+            if (m == null) return;
             MatchDetails matchDetails = new MatchDetails();
             matchDetails.match = m;
-            if (true == matchDetails.ShowDialog() && m.winner != null)
+            if (true == matchDetails.ShowDialog()
+                && m != null
+                && tournament.status == Models.enums.TournamentStatus.IN_PRROGRESS)
             {
                 Border parent = (Border)matchBtn.Parent;
                 TextBlock matchDesc = (TextBlock)matchBtn.Content;

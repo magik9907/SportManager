@@ -49,7 +49,7 @@ namespace SportManager
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            DialogResult = false;
             Close();
         }
 
