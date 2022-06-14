@@ -34,17 +34,16 @@ namespace SportManager.Models
             int numberOfTeams = teams.Count;
             CupRound round = null;
 
-            for(int i = 0; i <Math.Floor(Math.Sqrt(numberOfTeams));i++)
+            for (int i = 0; i <= Math.Floor(Math.Sqrt(numberOfTeams)); i++)
             {
                 round = new CupRound();
+                round.matches.Capacity = (int)Math.Pow(2, i);
                 cupRound.Add(round);
             }
-                round = new CupRound();
             var teamsIndexes = Enumerable.Range(0, numberOfTeams).ToList();
             for (int i = 0; i < Math.Floor((double)numberOfTeams / 2); i++)
             {
                 var match = new Match();
-
                 int rand = random.Next(0, teamsIndexes.Count());
                 match.host = teams[teamsIndexes[rand]];
                 teamsIndexes.RemoveAt(rand);
@@ -52,15 +51,22 @@ namespace SportManager.Models
                 match.guest = teams[teamsIndexes[rand]];
                 teamsIndexes.RemoveAt(rand);
                 round.matches.Add(match);
-
             }
 
-            if (teamsIndexes.Count == 1) { 
+            if (teamsIndexes.Count == 1)
+            {
                 var match = new Match();
                 match.host = teams[teamsIndexes[0]];
                 round.matches.Add(match);
+                int size = round.matches.Count;
+                round = cupRound[(int)Math.Floor(Math.Sqrt(numberOfTeams)) - 1];
+                var m = new Match();
+                if (size % 4 > 1)
+                    m.guest = match.host;
+                else m.host = match.host;
+                round.matches.Insert((int)Math.Floor((double)size / 2) - 1, m);
+
             }
-            cupRound.Add(round);
         }
 
         //Example data
@@ -272,5 +278,5 @@ namespace SportManager.Models
         }
     }
 
-   
+
 }

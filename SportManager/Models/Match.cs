@@ -13,8 +13,8 @@ namespace SportManager.Models
         public int host_goal { get; set; }
         public int guest_goal { get; set; }
         /**
-         * 1 if winner is host
-         * 0 if winner is guest
+         * true if winner is host
+         * false if winner is guest
          */
         public bool winner { get; set; }
     }

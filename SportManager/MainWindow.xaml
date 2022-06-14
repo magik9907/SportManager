@@ -29,20 +29,20 @@
                 <StackPanel>
                     <DockPanel>
                         <Label Margin="3">Sorting</Label>
-                        <ComboBox >
-                            <ComboBoxItem>Start date - ascending</ComboBoxItem>
+                        <ComboBox SelectionChanged="Sort" x:Name="sort">
+                            <ComboBoxItem IsSelected="True" >Start date - ascending</ComboBoxItem>
                             <ComboBoxItem>Start date - descending</ComboBoxItem>
                             <ComboBoxItem>Status - ascending</ComboBoxItem>
                             <ComboBoxItem>Status - descending</ComboBoxItem>
                         </ComboBox>
                     </DockPanel>
-                    <DockPanel>
+                    <DockPanel >
                         <Label Margin="3">Active tournaments </Label>
-                        <CheckBox  VerticalAlignment="Center"/>
+                        <CheckBox  VerticalAlignment="Center" x:Name="selectActive" Click="SelectActive"/>
                     </DockPanel>
-                    <DockPanel>
+                    <DockPanel >
                         <Label Margin="3">Tournament title</Label>
-                       <TextBox />
+                       <TextBox x:Name="tournamentName" TextChanged="TournamentTitleChange"/>
                     </DockPanel>
                     <Separator />
                 </StackPanel>
