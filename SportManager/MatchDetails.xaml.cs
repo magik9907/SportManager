@@ -1,6 +1,7 @@
 ﻿using SportManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,34 @@ namespace SportManager
     /// </summary>
     public partial class MatchDetails : Window
     {
-        public Match match { get; set; } 
+        public Match match { get; set; }
+
+        private Collection<Team> teams;
+        public MatchDetails(Match match, Collection<Team> teams)
+        {
+            InitializeComponent();
+            this.match = match;
+            this.Who.Text = match.host.name + " VS " + match.guest.name;
+            this.teams = new Collection<Team>();
+            //foreach (Team team in teams)
+            //{
+            //    if (tournament.teams != null && !tournament.teams.Contains(team))
+            //    {
+            //        this.teams.Add(team);
+            //    }
+            //}
+
+            //allTeamsListBox.ItemsSource = this.teams;
+            //participatingTeamsListBox.ItemsSource = tournament.teams;
+
+            //stateInitWindow();
+        }
+
+        private void ChangeHost()
+        {
+            
+        }
+
         public MatchDetails()
         {
             InitializeComponent();

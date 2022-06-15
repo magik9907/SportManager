@@ -42,8 +42,8 @@
                         <TextBlock  Text="Score" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="1"></TextBlock>
                         <TextBlock  Text="Away Team" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="2"></TextBlock>
                     </Grid>
-                    
-                    <ListBox Grid.Row="2" x:Name="matchesListBox">
+
+                    <ListBox Grid.Row="2" x:Name="matchesListBox" SelectionMode="Single" SelectionChanged="showMatch">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

@@ -65,6 +65,8 @@ namespace SportManager
 
             }
         }
+
+
         private void createTeam(object sender, RoutedEventArgs e)
         {
             CreateTeam createTeam = new CreateTeam();

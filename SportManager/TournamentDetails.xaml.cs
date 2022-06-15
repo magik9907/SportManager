@@ -338,5 +338,16 @@ namespace SportManager
         {
             public Match match { get; set; }
         }
+
+        private void showMatch(object sender, SelectionChangedEventArgs e)
+        {
+            var btn = sender as ListBox;
+            Match match = (Match)btn.SelectedItem;
+            MatchDetails matchDetails = new MatchDetails(match, teams);
+            if (true == matchDetails.ShowDialog())
+            {
+
+            }
+        }
     }
 }
