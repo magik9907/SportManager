@@ -23,14 +23,16 @@ namespace SportManager
     public partial class TournamentDetails : Window
     {
         public Tournament tournament;
-        private Collection<Team> teams;
-
+        private Collection<Team> allTeams;
+        private ObservableCollection<Team> teams = new ObservableCollection<Team>();
+        private ObservableCollection<Team> participantsTeams = new ObservableCollection<Team>();
         public TournamentDetails(Tournament tournament, Collection<Team> teams)
         {
             InitializeComponent();
             this.tournament = tournament;
             this.title.Text = tournament.title;
-            this.teams = new Collection<Team>();
+            this.allTeams = teams;
+
             foreach (Team team in teams)
             {
                 if (tournament.teams != null && !tournament.teams.Contains(team))
@@ -39,8 +41,13 @@ namespace SportManager
                 }
             }
 
+            foreach (Team team in tournament.teams)
+            {
+                this.participantsTeams.Add(team);
+            }
+
             allTeamsListBox.ItemsSource = this.teams;
-            participatingTeamsListBox.ItemsSource = tournament.teams;
+            participatingTeamsListBox.ItemsSource = participantsTeams;
 
             stateInitWindow();
         }
@@ -76,6 +83,7 @@ namespace SportManager
                     add.Visibility = Visibility.Hidden;
                     endTournament.Visibility = Visibility.Visible;
                     startTournament.Visibility = Visibility.Hidden;
+                    removeTeamBtn.Visibility = Visibility.Hidden;
                     break;
                 case Models.enums.TournamentStatus.DONE:
                     if (tournament.type == "League")
@@ -92,6 +100,7 @@ namespace SportManager
                     add.Visibility = Visibility.Hidden;
                     startTournament.Visibility = Visibility.Hidden;
                     endTournament.Visibility = Visibility.Hidden;
+                    removeTeamBtn.Visibility = Visibility.Hidden;
                     break;
             }
         }
@@ -186,18 +195,34 @@ namespace SportManager
         public void clickAddTeam(object sender, RoutedEventArgs e)
         {
             tournament.teams.Add(teams.ElementAt(allTeamsListBox.SelectedIndex));
-            this.teams.Remove(teams.ElementAt(allTeamsListBox.SelectedIndex));
+            this.allTeams.Remove(teams.ElementAt(allTeamsListBox.SelectedIndex));
+            filter(participantsTeams, tournament.teams, findParticipantBox.Text);
+            filter(teams, allTeams, findNewTeamBox.Text);
             participatingTeamsListBox.Items.Refresh();
             allTeamsListBox.Items.Refresh();
         }
 
         public void clickRemoveTeam(object sender, RoutedEventArgs e)
         {
-            teams.Add(tournament.teams.ElementAt(participatingTeamsListBox.SelectedIndex));
+            allTeams.Add(participantsTeams.ElementAt(participatingTeamsListBox.SelectedIndex));
             tournament.teams.Remove(tournament.teams.ElementAt(participatingTeamsListBox.SelectedIndex));
+            filter(participantsTeams, tournament.teams, findParticipantBox.Text);
+            filter(teams, allTeams, findNewTeamBox.Text);
             participatingTeamsListBox.Items.Refresh();
             allTeamsListBox.Items.Refresh();
+        }
 
+        private void filter(ObservableCollection<Team> t, Collection<Team> c, String title)
+        {
+            t.Clear();
+
+            foreach (var x in c)
+            {
+                if (title == x.name || x.name.Contains(title))
+                {
+                    t.Add(x);
+                }
+            }
         }
 
         private void startTournament_Click(object sender, RoutedEventArgs e)
@@ -348,6 +373,17 @@ namespace SportManager
             {
 
             }
+        }
+
+        private void findParticipantBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filter(participantsTeams, tournament.teams, findParticipantBox.Text);
+
+        }
+
+        private void findNewTeamBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filter(teams, allTeams, findNewTeamBox.Text);
         }
     }
 }

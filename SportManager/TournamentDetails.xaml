@@ -125,10 +125,15 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
                         <RowDefinition Height="50*"/>
                         <RowDefinition Height="10*"/>
                     </Grid.RowDefinitions>
-                    <Grid>
+                    <DockPanel VerticalAlignment="Center">
+                        <TextBlock FontSize="16">Team name:</TextBlock>
+                        <TextBox x:Name="findParticipantBox" Margin="20,0,0,0" TextChanged="findParticipantBox_TextChanged"></TextBox>
+                    </DockPanel>
+                    <Grid Grid.Row="1" > 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="8*"/>
@@ -142,7 +147,7 @@
 
                     </Grid>
 
-                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="participatingTeamsListBox" HorizontalAlignment="Stretch">
+                    <ListBox Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="participatingTeamsListBox" HorizontalAlignment="Stretch">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -166,17 +171,22 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Grid.Row="2" Content="Remove team" Margin="250,10" Click="clickRemoveTeam"/>
+                    <Button Grid.Row="3" Name="removeTeamBtn" Content="Remove team" Margin="250,10" Click="clickRemoveTeam"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Add team" x:Name="add" Height="20" VerticalAlignment="Bottom" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
                         <RowDefinition Height="50*"/>
                         <RowDefinition Height="10*"/>
                     </Grid.RowDefinitions>
-                    <Grid>
+                    <DockPanel VerticalAlignment="Center">
+                        <TextBlock FontSize="16">Team name:</TextBlock>
+                        <TextBox Name="findNewTeamBox" Margin="20,0,0,0" TextChanged="findNewTeamBox_TextChanged"></TextBox>
+                    </DockPanel>
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="8*"/>
@@ -190,7 +200,7 @@
 
                     </Grid>
 
-                    <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="allTeamsListBox">
+                    <ListBox Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="allTeamsListBox">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -216,7 +226,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Grid.Row="2" Content="Add team" Margin="250,10" Click="clickAddTeam" />
+                    <Button Grid.Row="3" Content="Add team" Margin="250,10" Click="clickAddTeam" />
                 </Grid>
             </TabItem>
         </TabControl>
