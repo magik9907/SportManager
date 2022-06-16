@@ -34,7 +34,7 @@ namespace SportManager.Models
             int numberOfTeams = teams.Count;
             CupRound round = null;
 
-            for (int i = 0; i < Math.Floor(Math.Sqrt(numberOfTeams)); i++)
+            for (int i = 0; i < (numberOfTeams == 2 ? 1 : Math.Ceiling(Math.Sqrt(numberOfTeams))); i++)
             {
                 round = new CupRound();
                 round.matches.Capacity = (int)Math.Pow(2, i);

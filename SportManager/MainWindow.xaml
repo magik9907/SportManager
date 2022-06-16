@@ -38,7 +38,12 @@
                     </DockPanel>
                     <DockPanel >
                         <Label Margin="3">Active tournaments </Label>
-                        <CheckBox  VerticalAlignment="Center" x:Name="selectActive" Click="SelectActive"/>
+                        <ComboBox SelectionChanged="SelectState"  x:Name="selectState" >
+                            <ComboBoxItem  >Done</ComboBoxItem>
+                            <ComboBoxItem>In progress</ComboBoxItem>
+                            <ComboBoxItem>Not started</ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">All</ComboBoxItem>
+                        </ComboBox>
                     </DockPanel>
                     <DockPanel >
                         <Label Margin="3">Tournament title</Label>

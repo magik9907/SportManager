@@ -50,7 +50,7 @@ namespace SportManager
             {
                 var btn = sender as Button;
 
-                tournaments.addTournament(create.Tournament, tournamentName.Text, sort.Text,selectActive.IsChecked);
+                tournaments.addTournament(create.Tournament, tournamentName.Text, sort.Text, selectState.SelectedIndex == 3 ? null : (TournamentStatus)Enum.Parse(typeof(TournamentStatus), selectState.SelectedIndex.ToString()));
             }
         }
 
@@ -102,18 +102,18 @@ namespace SportManager
                 tournamentsCopy.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
                 tournamentsCopy.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), 4, TournamentStatus.DONE, league, cup, "Cup"));
                 tournamentsCopy.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
-                filter("", "Start date - descending", false);
+                filter("", "Start date - descending", null);
             }
 
-            public void filter(String title, string sort, bool? onlyActive)
+            public void filter(String title, string sort, TournamentStatus? status)
             {
                 tournaments.Clear();
                 List<Tournament> list;
                 if (title == "") list = tournamentsCopy.ToList();
                 else
                     list = tournamentsCopy.Where(x => (title == "" || x.title.Contains(title))).ToList();
-                if (onlyActive == true)
-                    list = tournamentsCopy.Where(x => x.status == TournamentStatus.IN_PRROGRESS).ToList();
+                if (status != null)
+                    list = tournamentsCopy.Where(x => x.status == status).ToList();
                 sortList(list, sort).ForEach(x => tournaments.Add(x));
             }
 
@@ -136,10 +136,10 @@ namespace SportManager
 
             }
 
-            public void addTournament(Tournament t, String title, string sort,bool? onlyActive)
+            public void addTournament(Tournament t, String title, string sort, TournamentStatus? status)
             {
                 tournamentsCopy.Add(t);
-                filter(title, sort, onlyActive);
+                filter(title, sort, status);
 
             }
 
@@ -147,7 +147,7 @@ namespace SportManager
 
         private void filter()
         {
-            tournaments.filter(tournamentName != null ? tournamentName.Text : "", sort.Text, selectActive == null ? false : selectActive.IsChecked);
+            tournaments.filter(tournamentName != null ? tournamentName.Text : "", sort.Text, selectState == null||selectState.SelectedIndex == 3  ? null : (TournamentStatus)Enum.Parse(typeof(TournamentStatus), selectState.SelectedIndex.ToString()));
         }
 
         private void Sort(object sender, RoutedEventArgs e)
@@ -155,7 +155,7 @@ namespace SportManager
             filter();
         }
 
-        private void SelectActive(object sender, RoutedEventArgs e)
+        private void SelectState(object sender, RoutedEventArgs e)
         {
             filter();
         }
