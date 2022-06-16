@@ -227,7 +227,7 @@ namespace SportManager
             MatchButton matchBtn = (MatchButton)sender;
             Match m = (matchBtn).match;
             if (m == null) return;
-            MatchDetails matchDetails = new MatchDetails();
+            MatchDetails matchDetails = new MatchDetails(m,teams);
             matchDetails.match = m;
             if (true == matchDetails.ShowDialog()
                 && m != null

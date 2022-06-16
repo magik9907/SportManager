@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportManager"
         mc:Ignorable="d"
+        Loaded="Load"
         Title="MatchDetails"  SizeToContent="Height" Width="400"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent" FontSize="14">
     <Grid>
@@ -20,20 +21,54 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Jaga" Margin="3" >
+                    <GroupBox Header="Gospodarze" Margin="3" >
                         <StackPanel Margin="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="Gole:" Grid.Column="0" FontSize="12" />
+                                <TextBox Name="Gol_1" Text="0"  Grid.Column="1"/>
+                                <Label Content="Żółte kartki:" Grid.Row="1" Grid.Column="0" FontSize="12" />
+                                <TextBox Name="YellowCard_1" Text="0" Grid.Row="1" Grid.Column="1"/>
+                                <Label Content="Czerwone kartki:" Grid.Row="2" Grid.Column="0" FontSize="12" />
+                                <TextBox Name="RedCard_1" Text="0" Grid.Row="2" Grid.Column="1"/>
+                            </Grid>
                             <!--<CheckBox Margin="3" Checked="Gol_1" Content="Strzelone bramki"/>
                             <CheckBox Margin="3" Checked="YellowCard_1" Content="Żółte kartki"/>
-                            <CheckBox Margin="3" Checked="RedCard_1" Content="Czerwone kartki"/>-->
-                            <TextBox Name="Info_1" MinLines="4" MaxLines="8" VerticalScrollBarVisibility="Auto" IsReadOnly="True"></TextBox>
+                            <CheckBox Margin="3" Checked="RedCard_1" Content="Czerwone kartki"/>
+                            <TextBox Name="Info_1" MinLines="4" MaxLines="8" VerticalScrollBarVisibility="Auto" IsReadOnly="True"></TextBox> -->
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Header="Legia" Grid.Column="1" Margin="3">
+                    <GroupBox Header="Goście" Grid.Column="1" Margin="3">
                         <StackPanel Margin="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="Gole:" Grid.Column="0" FontSize="12" />
+                                <TextBox Name="Gol_2" Text="0" Grid.Column="1"/>
+                                <Label Content="Żółte kartki:" Grid.Row="1" Grid.Column="0" FontSize="12" />
+                                <TextBox Name="YellowCard_2" Text="0" Grid.Row="1" Grid.Column="1"/>
+                                <Label Content="Czerwone kartki:" Grid.Row="2" Grid.Column="0" FontSize="12" />
+                                <TextBox Name="RedCard_2" Text="0" Grid.Row="2" Grid.Column="1"/>
+                            </Grid>
                             <!--<CheckBox Margin="3" Checked="Gol_2" Content="Strzelone bramki"/>
                             <CheckBox Margin="3" Checked="YellowCard_2" Content="Żółte kartki"/>
-                            <CheckBox Margin="3" Checked="RedCard_2" Content="Czerwone kartki"/>-->
-                            <TextBox Name="Info_2" MinLines="4" MaxLines="8" VerticalScrollBarVisibility="Auto" IsReadOnly="True"></TextBox>
+                            <CheckBox Margin="3" Checked="RedCard_2" Content="Czerwone kartki"/>
+                            <TextBox Name="Info_2" MinLines="4" MaxLines="8" VerticalScrollBarVisibility="Auto" IsReadOnly="True"></TextBox>-->
                         </StackPanel>
                     </GroupBox>
                 </Grid>
