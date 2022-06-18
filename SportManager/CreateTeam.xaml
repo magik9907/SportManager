@@ -11,7 +11,7 @@
            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
@@ -28,10 +28,14 @@
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
-     
-                <TextBlock Grid.Column="0" Text="Name" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBox Grid.Column="1" x:Name="nameBox" Margin="20"  FontSize="16" VerticalContentAlignment="Center"  ></TextBox>
-                <Button Grid.Column="2" Content="Choose Crest" Margin="5,25" Click="chooseCrestClick" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="30*" />
+                <RowDefinition Height ="70*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"  Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="nameValidationLabel" FontSize="16"  FontStyle="Italic" Foreground="Red" Content="" ></Label>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameBox" Margin="15"  FontSize="16" VerticalContentAlignment="Center" LostFocus="nameValidation"  ></TextBox>
+                <Button Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="2" Content="Choose Crest" Margin="55,15" Click="chooseCrestClick" />
             <Image Grid.Column="3"  Name="imgPhoto" Margin="60,10" Stretch="Fill"   />
         </Grid>
         <Grid Grid.Row="2">
@@ -41,10 +45,16 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Street name" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Name="streetNameBox" Margin="20"  FontSize="16" VerticalContentAlignment="Center"/>
-            <TextBlock Grid.Column="2" Text="Street number" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="3" Name="streetNumberBox" Margin="20"  FontSize="16" VerticalContentAlignment="Center"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="70*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"  Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="streetNameValidationLabel" FontSize="16"  FontStyle="Italic" Foreground="Red" Content="" ></Label>
+            <Label Grid.Row="0" Grid.Column="2"  Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="streetNumberValidationLabel" FontSize="16"  FontStyle="Italic" Foreground="Red" Content="" ></Label>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Street name" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="streetNameBox" Margin="15"  FontSize="16" VerticalContentAlignment="Center" LostFocus="streetNameValidation"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="Street number" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Name="streetNumberBox" Margin="15"  FontSize="16" VerticalContentAlignment="Center" LostFocus="streetNumberValidation"/>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -53,18 +63,24 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Postal code" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Name="postalCodeBox" Margin="20" FontSize="16" VerticalContentAlignment="Center"/>
-            <TextBlock Grid.Column="2" Text="City" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="3" Name="cityBox" Margin="20"  FontSize="16" VerticalContentAlignment="Center"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="70*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="postalCodeValidationLabel" FontSize="16"  FontStyle="Italic" Foreground="Red" Content="" ></Label>
+            <Label Grid.Row="0" Grid.Column="2"  Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="cityValidationLabel" FontSize="16"  FontStyle="Italic" Foreground="Red" Content="" ></Label>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Postal code" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="postalCodeBox" Margin="15" FontSize="16" VerticalContentAlignment="Center" LostFocus="postalCodeValidation"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="City" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Name="cityBox" Margin="15"  FontSize="16" VerticalContentAlignment="Center" LostFocus="cityValidation"/>
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Cancel" Margin="100,20" Background="Red" FontSize="16" IsCancel="True"/>
-            <Button Grid.Column="1" Content="Create" Margin="100,20" FontSize="16" Background="Green" Click="okClick"/>
+            <Button Grid.Column="0" Content="Cancel" Margin="110,23" Background="Red" FontSize="16" IsCancel="True"/>
+            <Button Grid.Column="1" Content="Create" Margin="110,23" FontSize="16" Background="Green" Click="okClick"/>
         </Grid>
 
     </Grid>
