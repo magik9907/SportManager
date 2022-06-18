@@ -228,7 +228,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Grid.Row="3" Content="Add team" Margin="250,10" Click="clickAddTeam" />
+                    <Button x:Name="buttonAllTeamListAdd" Grid.Row="3" Content="Add team" Margin="250,10" Click="clickAddTeam" />
                 </Grid>
             </TabItem>
         </TabControl>

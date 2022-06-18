@@ -200,6 +200,16 @@ namespace SportManager
             filter(teams, allTeams, findNewTeamBox.Text);
             participatingTeamsListBox.Items.Refresh();
             allTeamsListBox.Items.Refresh();
+            if(allTeamsListBox.Items.Count <= 0)
+            {
+                buttonAllTeamListAdd.IsEnabled = false;
+
+            }
+            else
+            {
+                buttonAllTeamListAdd.IsEnabled = true;
+                removeTeamBtn.IsEnabled = true;
+            }
         }
 
         public void clickRemoveTeam(object sender, RoutedEventArgs e)
@@ -210,6 +220,15 @@ namespace SportManager
             filter(teams, allTeams, findNewTeamBox.Text);
             participatingTeamsListBox.Items.Refresh();
             allTeamsListBox.Items.Refresh();
+            if(participatingTeamsListBox.Items.Count <= 0)
+            {
+                removeTeamBtn.IsEnabled = false;
+            }
+            else
+            {
+                removeTeamBtn.IsEnabled = true;
+                buttonAllTeamListAdd.IsEnabled = true;
+            }
         }
 
         private void filter(ObservableCollection<Team> t, Collection<Team> c, String title)
