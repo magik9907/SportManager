@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 namespace SportManager.Models
 {
@@ -18,7 +19,7 @@ namespace SportManager.Models
 
         public ImageSource crest { get; set; } = new BitmapImage(new Uri("pack://application:,,,/images/defaultcrest.png"));
 
-
+        public ObservableCollection<Player> players { get; set; } = new ObservableCollection<Player>();
         public string streetName { get; set; }
        
         public string streetNumber { get; set; }
@@ -57,6 +58,7 @@ namespace SportManager.Models
             }
             this.address = streetName + " " + streetNumber + ", " + postalCode + " " + city;
         }
+
 
         public string addressToString
         {

@@ -17,20 +17,20 @@
         <DockPanel Margin="5 0 0 5">
             <Button Content="Usuń" DockPanel.Dock="Bottom" Margin="25" Padding="8" />
             <Label Content="Zawodnik" DockPanel.Dock="Top" Margin="5"/>
-            <TextBlock Text="Marcin Utas" DockPanel.Dock="Top" Margin="3" FontSize="18" />
+            <TextBox Text="{Binding fullName}" DockPanel.Dock="Top" Margin="3" FontSize="18"  />
             <Image Name="foto" Source="https://this-person-does-not-exist.com/img/avatar-7f001f6d6e59727a96e67e6f0a658845.jpg" Margin="3"/>
         </DockPanel>
         <StackPanel Grid.Column="1" Margin="0 27 0 5">
             <GroupBox Header="Status zawodnika" Margin="5">
                 <StackPanel>
-                    <CheckBox Name="captain" Content="kapitan" Margin="5" />
-                    <CheckBox Name="reserve" Content="rezerwowy" Margin="5" />
+                    <CheckBox Name="captain" Content="kapitan" Margin="5" IsChecked="{Binding isCaptain , Mode=TwoWay}"/>
+                    <CheckBox Name="reserve" Content="rezerwowy" Margin="5"  IsChecked="{Binding substitute , Mode=TwoWay}"/>
                     <GroupBox Header="Pozycja" Margin="5">
                         <StackPanel>
-                            <RadioButton Content="bramkarz" Margin="5" />
-                            <RadioButton Content="obrońca" Margin="5" />
-                            <RadioButton Content="pomocnik" Margin="5" />
-                            <RadioButton Content="napastnik" Margin="5" />
+                            <RadioButton GroupName="position" Content="Bramkarz" Margin="5" Checked="SelectPosition"  />
+                            <RadioButton GroupName="position" Content="Obrońca" Margin="5" Checked="SelectPosition"  />
+                            <RadioButton GroupName="position" Content="Pomocnik" Margin="5" Checked="SelectPosition" />
+                            <RadioButton GroupName="position" Content="Napastnik" Margin="5" Checked="SelectPosition"  />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>

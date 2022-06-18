@@ -229,12 +229,12 @@ namespace SportManager
         {
             if (tournament.teams.Count() > tournament.numberOfTeams)
             {
-                MessageBox.Show("Number of teams in tournament is to large", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Liczba zespołów jest za duża", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             if (tournament.teams.Count() < 2)
             {
-                MessageBox.Show("Number of teams in tournament is insufficient ", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Minimalna liczba zespołów to 2 ", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             tournament.startTournament(matchesListBox);
@@ -384,6 +384,13 @@ namespace SportManager
         private void findNewTeamBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             filter(teams, allTeams, findNewTeamBox.Text);
+        }
+
+        private void teamDetails_Click(object sender, RoutedEventArgs e)
+        {
+            var team = ((Team)((Grid)((Button)sender).Parent).DataContext);
+            TeamDetails teamDetail =new TeamDetails(team);
+            teamDetail.ShowDialog();
         }
     }
 }

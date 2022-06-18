@@ -19,19 +19,39 @@ namespace SportManager
     /// </summary>
     public partial class Player : Window
     {
+        public Models.Player model = new Models.Player();
         public Player()
         {
             InitializeComponent();
+            DataContext = model;
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
+            if(model.fullName ==null ||model.fullName == "")
+            {
+                MessageBox.Show("Imie i nazwisko zawodnika jest wymagane", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (model.position == null || model.position == "")
+            {
+                MessageBox.Show("Pozycja zawodnika jest wymagana", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             DialogResult = true;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void SelectPosition(object sender, RoutedEventArgs e)
+        {
+            RadioButton rbtn = (RadioButton)sender;
+            model.position =(string) rbtn.Content;
         }
     }
 }

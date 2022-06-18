@@ -32,7 +32,7 @@
                 <TextBlock Grid.Column="0" Text="Name" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <TextBox Grid.Column="1" x:Name="nameBox" Margin="20"  FontSize="16" VerticalContentAlignment="Center"  ></TextBox>
                 <Button Grid.Column="2" Content="Choose Crest" Margin="5,25" Click="chooseCrestClick" />
-            <Image Grid.Column="3"  Name="imgPhoto" Margin="60,10" Stretch="Fill"  />
+            <Image Grid.Column="3"  Name="imgPhoto" Margin="60,10" Stretch="Fill"   />
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

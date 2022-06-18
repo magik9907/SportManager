@@ -102,7 +102,7 @@ namespace SportManager
                 tournamentsCopy.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
                 tournamentsCopy.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), 4, TournamentStatus.DONE, league, cup, "Cup"));
                 tournamentsCopy.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
-                filter("", "Start date - descending", null);
+                filter("", "Start date - ascending", null);
             }
 
             public void filter(String title, string sort, TournamentStatus? status)
@@ -123,16 +123,16 @@ namespace SportManager
 
                 switch (s)
                 {
-                    case "Start date - descending": return t.OrderBy(x => x.startDate).ToList();
+                    case "Start date - descending": return t.OrderByDescending(x => x.startDate).ToList();
 
-                    case "Start date - ascending": return t.OrderByDescending(x => x.startDate).ToList();
+                    case "Start date - ascending": return t.OrderBy(x => x.startDate).ToList();
 
                     case "Status - ascending": return t.OrderByDescending(x => x.status).ToList();
 
                     case "Status - descending": return t.OrderBy(x => x.status).ToList();
                 }
 
-                return t;
+                return t.OrderBy(x => x.startDate).ToList();
 
             }
 
