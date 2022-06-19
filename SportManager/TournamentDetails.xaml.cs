@@ -388,9 +388,10 @@ namespace SportManager
             var btn = sender as ListBox;
             Match match = (Match)btn.SelectedItem;
             MatchDetails matchDetails = new MatchDetails(match, teams);
+            System.Diagnostics.Debug.WriteLine(match.matchEnded);
             if (true == matchDetails.ShowDialog())
             {
-
+                matchesListBox.Items.Refresh();
             }
         }
 

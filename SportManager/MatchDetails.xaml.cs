@@ -33,7 +33,17 @@ namespace SportManager
 
             
             this.teams = new Collection<Team>();
-           
+
+            if (match.matchEnded == true)
+            {
+                Gol_1.IsReadOnly = true;
+                Gol_2.IsReadOnly = true;
+                YellowCard_1.IsReadOnly = true;
+                YellowCard_2.IsReadOnly = true;
+                RedCard_1.IsReadOnly = true;
+                RedCard_2.IsReadOnly = true;
+            }
+
 
             //string ScoreHost = To_Str(match.host_goal), ScoreGuest = To_Str(match.guest_goal), YellowHost="0", YellowGuest="0", RedHost="0", RedGuest="0";
 
@@ -55,6 +65,7 @@ namespace SportManager
         public MatchDetails()
         {
             InitializeComponent();
+            
         }
 
         public string To_Str(int i)
@@ -115,6 +126,7 @@ namespace SportManager
             match.guest_yellowcard = To_Int(YellowCard_2.Text);
             match.host_redcard = To_Int(RedCard_1.Text);
             match.guest_redcard = To_Int(RedCard_2.Text);
+            match.matchEnded = true;
 
             if (match.guest_goal> match.host_goal) match.winner = false;
         }

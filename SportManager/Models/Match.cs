@@ -24,5 +24,11 @@ namespace SportManager.Models
          * false if winner is guest
          */
         public bool winner { get; set; }
+
+        /**
+        * true if match ended
+        * false if match didn't end
+        */
+        public bool matchEnded { get; set; }
     }
 }
