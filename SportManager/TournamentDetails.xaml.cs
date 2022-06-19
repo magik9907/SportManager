@@ -193,41 +193,46 @@ namespace SportManager
         }
 
         public void clickAddTeam(object sender, RoutedEventArgs e)
-        {
-            tournament.teams.Add(teams.ElementAt(allTeamsListBox.SelectedIndex));
-            this.allTeams.Remove(teams.ElementAt(allTeamsListBox.SelectedIndex));
-            filter(participantsTeams, tournament.teams, findParticipantBox.Text);
-            filter(teams, allTeams, findNewTeamBox.Text);
-            participatingTeamsListBox.Items.Refresh();
-            allTeamsListBox.Items.Refresh();
-            if(allTeamsListBox.Items.Count <= 0)
+        {  if (allTeamsListBox.SelectedItem != null)
             {
-                buttonAllTeamListAdd.IsEnabled = false;
+                tournament.teams.Add(teams.ElementAt(allTeamsListBox.SelectedIndex));
+                this.allTeams.Remove(teams.ElementAt(allTeamsListBox.SelectedIndex));
+                filter(participantsTeams, tournament.teams, findParticipantBox.Text);
+                filter(teams, allTeams, findNewTeamBox.Text);
+                participatingTeamsListBox.Items.Refresh();
+                allTeamsListBox.Items.Refresh();
+                if (allTeamsListBox.Items.Count <= 0)
+                {
+                    buttonAllTeamListAdd.IsEnabled = false;
 
-            }
-            else
-            {
-                buttonAllTeamListAdd.IsEnabled = true;
-                removeTeamBtn.IsEnabled = true;
-            }
+                }
+                else
+                {
+                    buttonAllTeamListAdd.IsEnabled = true;
+                    removeTeamBtn.IsEnabled = true;
+                }
+            }     
         }
 
         public void clickRemoveTeam(object sender, RoutedEventArgs e)
         {
-            allTeams.Add(participantsTeams.ElementAt(participatingTeamsListBox.SelectedIndex));
-            tournament.teams.Remove(tournament.teams.ElementAt(participatingTeamsListBox.SelectedIndex));
-            filter(participantsTeams, tournament.teams, findParticipantBox.Text);
-            filter(teams, allTeams, findNewTeamBox.Text);
-            participatingTeamsListBox.Items.Refresh();
-            allTeamsListBox.Items.Refresh();
-            if(participatingTeamsListBox.Items.Count <= 0)
+            if (participatingTeamsListBox.SelectedItem != null)
             {
-                removeTeamBtn.IsEnabled = false;
-            }
-            else
-            {
-                removeTeamBtn.IsEnabled = true;
-                buttonAllTeamListAdd.IsEnabled = true;
+                allTeams.Add(participantsTeams.ElementAt(participatingTeamsListBox.SelectedIndex));
+                tournament.teams.Remove(tournament.teams.ElementAt(participatingTeamsListBox.SelectedIndex));
+                filter(participantsTeams, tournament.teams, findParticipantBox.Text);
+                filter(teams, allTeams, findNewTeamBox.Text);
+                participatingTeamsListBox.Items.Refresh();
+                allTeamsListBox.Items.Refresh();
+                if (participatingTeamsListBox.Items.Count <= 0)
+                {
+                    removeTeamBtn.IsEnabled = false;
+                }
+                else
+                {
+                    removeTeamBtn.IsEnabled = true;
+                    buttonAllTeamListAdd.IsEnabled = true;
+                }
             }
         }
 
@@ -257,7 +262,7 @@ namespace SportManager
                 return;
             }
             tournament.startTournament(matchesListBox);
-            stateInitWindow();
+             stateInitWindow();
         }
 
         private void endTournament_Click(object sender, RoutedEventArgs e)
@@ -391,7 +396,9 @@ namespace SportManager
             System.Diagnostics.Debug.WriteLine(match.matchEnded);
             if (true == matchDetails.ShowDialog())
             {
+                standigsUpdate(match);
                 matchesListBox.Items.Refresh();
+
             }
         }
 
@@ -411,6 +418,97 @@ namespace SportManager
             var team = ((Team)((Grid)((Button)sender).Parent).DataContext);
             TeamDetails teamDetail =new TeamDetails(team);
             teamDetail.ShowDialog();
+        }
+        public void standigsUpdate(Match match)
+        {
+            LeagueStanding league = tournament.league;
+            
+            if(match.matchEnded)
+            {
+               foreach(var teamstats in league.rank)
+                {
+                    if(teamstats.team == match.host)
+                    {
+                        if(match.host_goal > match.guest_goal)
+                        {
+                            teamstats.win++;
+                            teamstats.goal_for += match.host_goal;
+                            teamstats.goal_against += match.guest_goal;
+                            teamstats.points += 3;
+                        }
+                        else if(match.host_goal < match.guest_goal)
+                        {
+                            teamstats.loose++;
+                            teamstats.goal_for += match.host_goal;
+                            teamstats.goal_against += match.guest_goal;
+                            
+                        }
+                        else
+                        {
+                            teamstats.draw++;
+                            teamstats.goal_for += match.host_goal;
+                            teamstats.goal_against += match.guest_goal;
+                            teamstats.points++;
+                        }
+                    }
+                    else if(teamstats.team == match.guest)
+                    {
+                        if (match.host_goal > match.guest_goal)
+                        {
+                            
+                            teamstats.loose++;
+                            teamstats.goal_for += match.guest_goal;
+                            teamstats.goal_against += match.host_goal;
+                        }
+                        else if (match.host_goal < match.guest_goal)
+                        {
+                            teamstats.win++;
+                            teamstats.goal_for += match.guest_goal;
+                            teamstats.goal_against += match.host_goal;
+                            teamstats.points += 3;
+
+                        }
+                        else
+                        {
+                            teamstats.draw++;
+                            teamstats.goal_for += match.guest_goal;
+                            teamstats.goal_against += match.host_goal;
+                            teamstats.points++;
+                        }
+                    }
+                }
+               
+                
+
+            }
+            //sortowanie po punktach i przypisywanie lp
+            bool[] check = new bool[league.rank.Count];
+            for (int i = 1; i < league.rank.Count +1; i++)
+            {
+                int max = -3;
+                int temp = -3;
+                for (int j = 0; j < league.rank.Count; j++)
+                {
+                    if (!check[j])
+                    {
+                        if (league.rank[j].points > max)
+                        {
+                          
+                            max = league.rank[j].points;
+                                temp = j;
+                            
+                        }
+                    }
+
+                }
+                if(temp != -3)
+                {
+                    league.rank[temp].lp = i;                    
+                    check[temp] = true;
+                }              
+            }
+            league.rank.Sort((x,y) => x.lp.CompareTo(y.lp));
+            leagueStandingView.Items.Refresh();
         }
     }
 }
