@@ -1,34 +1,29 @@
 ﻿using SportManager.Models;
 using SportManager.Models.enums;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Grid;
+using Syncfusion.Windows.PdfViewer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
 
 namespace SportManager
 {
-
-
-
     public partial class MainWindow : Window
     {
         public Collection<Team> teams = new Collection<Team>();
-        public ViewModel tournaments = new ViewModel();
+        public ViewModel tournamentViewModel = new ViewModel();
         public MainWindow()
         {
             InitializeComponent();
-            tournametsList.ItemsSource = tournaments.tournaments;
+            tournametsList.ItemsSource = tournamentViewModel.tournaments;
 
             //TODO delete mock
 
@@ -50,7 +45,7 @@ namespace SportManager
             {
                 var btn = sender as Button;
 
-                tournaments.addTournament(create.Tournament, tournamentName.Text, sort.Text, selectState.SelectedIndex == 3 ? null : (TournamentStatus)Enum.Parse(typeof(TournamentStatus), selectState.SelectedIndex.ToString()));
+                tournamentViewModel.addTournament(create.Tournament, tournamentName.Text, sort.Text, selectState.SelectedIndex == 3 ? null : (TournamentStatus)Enum.Parse(typeof(TournamentStatus), selectState.SelectedIndex.ToString()));
             }
         }
 
@@ -79,6 +74,45 @@ namespace SportManager
                 teams.Add(team);
             }
 
+        }
+
+        private void remove(object sender, RoutedEventArgs e)
+        {
+            var tournamentButton = sender as Button;
+            var tournament = tournamentButton.Tag as Tournament;
+            this.tournamentViewModel.removeTournament(tournament);
+        }
+
+        private void printTournaments(object sender, RoutedEventArgs e)
+        {
+            using (var document = new PdfDocument())
+            {
+                PdfPage page = document.Pages.Add();
+                PdfGraphics graphics = page.Graphics;
+                PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
+                PdfGrid pdfGrid = new PdfGrid();
+                DataTable dataTable = new DataTable();
+                dataTable.Columns.Add("Title");
+                dataTable.Columns.Add("Description");
+                dataTable.Columns.Add("Start Date");
+                dataTable.Columns.Add("Status");
+                foreach (var tournamnet in this.tournamentViewModel.tournaments)
+                {
+                    dataTable.Rows.Add(new object[] { tournamnet.title, tournamnet.description, tournamnet.startDate.ToString(), tournamnet.Status });
+                }
+                pdfGrid.DataSource = dataTable;
+                pdfGrid.Draw(page, new PointF(10, 10));
+                string fileName = string.Concat("Output_Tournaments_", DateTime.Now.ToFileTime().ToString(), ".pdf");
+                document.Save(fileName);
+                document.Close(true);
+
+                Assembly asm = Assembly.GetExecutingAssembly();
+                string path = System.IO.Path.GetDirectoryName(asm.Location);
+
+                PdfDocumentView pdfViewer = new PdfDocumentView();
+                pdfViewer.Load(System.IO.Path.Combine(path, fileName));
+                pdfViewer.Print();
+            }
         }
 
         public class ViewModel
@@ -143,11 +177,17 @@ namespace SportManager
 
             }
 
+            public void removeTournament(Tournament t)
+            {
+                tournaments.Remove(t);
+                tournamentsCopy.Remove(t);
+            }
+
         }
 
         private void filter()
         {
-            tournaments.filter(tournamentName != null ? tournamentName.Text : "", sort.Text, selectState == null||selectState.SelectedIndex == 3  ? null : (TournamentStatus)Enum.Parse(typeof(TournamentStatus), selectState.SelectedIndex.ToString()));
+            tournamentViewModel.filter(tournamentName != null ? tournamentName.Text : "", sort.Text, selectState == null || selectState.SelectedIndex == 3 ? null : (TournamentStatus)Enum.Parse(typeof(TournamentStatus), selectState.SelectedIndex.ToString()));
         }
 
         private void Sort(object sender, RoutedEventArgs e)
