@@ -30,6 +30,7 @@ namespace SportManager.Models
 
         public void start(Collection<Team> teams)
         {
+            cupRound = new List<CupRound>();
             var random = new Random();
             int numberOfTeams = teams.Count;
             CupRound round = null;

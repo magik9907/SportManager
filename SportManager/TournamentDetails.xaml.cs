@@ -29,6 +29,7 @@ namespace SportManager
         public TournamentDetails(Tournament tournament, Collection<Team> teams)
         {
             InitializeComponent();
+            if (tournament == null) return;
             this.tournament = tournament;
             this.title.Text = tournament.title;
             this.allTeams = teams;
@@ -65,20 +66,27 @@ namespace SportManager
                     add.Visibility = Visibility.Visible;
                     startTournament.Visibility = Visibility.Visible;
                     endTournament.Visibility = Visibility.Hidden;
+                    participants.IsSelected = true;
                     break;
                 case Models.enums.TournamentStatus.IN_PRROGRESS:
                     if (tournament.type == "Cup")
                     {
+                        statistic.Visibility = Visibility.Hidden;
+                        cup.IsSelected = true;
                         buildCupView();
                         cup.Visibility = Visibility.Visible;
+                        matches.Visibility = Visibility.Hidden;
+                        standing.Visibility = Visibility.Hidden;
                     }
                     else
                     {
+                        statistic.Visibility = Visibility.Visible;
+                        standing.IsSelected = true;
+                        cup.Visibility = Visibility.Hidden;
                         leagueStandingView.ItemsSource = tournament.league.rank;
                         matches.Visibility = Visibility.Visible;
                         standing.Visibility = Visibility.Visible;
                     }
-                    statistic.Visibility = Visibility.Visible;
                     participants.Visibility = Visibility.Visible;
                     add.Visibility = Visibility.Hidden;
                     endTournament.Visibility = Visibility.Visible;
@@ -88,11 +96,17 @@ namespace SportManager
                 case Models.enums.TournamentStatus.DONE:
                     if (tournament.type == "League")
                     {
+                        standing.IsSelected = true;
                         matches.Visibility = Visibility.Visible;
                         standing.Visibility = Visibility.Visible;
+                        cup.Visibility = Visibility.Hidden;
                     }
                     else
                     {
+                        buildCupView();
+                        cup.IsSelected = true;
+                        matches.Visibility = Visibility.Hidden;
+                        standing.Visibility = Visibility.Hidden;
                         cup.Visibility = Visibility.Visible;
                     }
                     statistic.Visibility = Visibility.Visible;
@@ -124,7 +138,7 @@ namespace SportManager
                     row.Height = new GridLength(1, GridUnitType.Auto);
                     grid.RowDefinitions.Add(row);
                     TextBlock roundTitle = new TextBlock();
-                    roundTitle.Text = "Rounds 1/" + Math.Pow(2, i);
+                    roundTitle.Text = "Runda 1/" + Math.Pow(2, i);
                     roundTitle.FontSize = 12;
                     roundTitle.VerticalAlignment = VerticalAlignment.Center;
                     roundTitle.HorizontalAlignment = HorizontalAlignment.Center;
@@ -193,7 +207,8 @@ namespace SportManager
         }
 
         public void clickAddTeam(object sender, RoutedEventArgs e)
-        {  if (allTeamsListBox.SelectedItem != null)
+        {
+            if (allTeamsListBox.SelectedItem != null)
             {
                 tournament.teams.Add(teams.ElementAt(allTeamsListBox.SelectedIndex));
                 this.allTeams.Remove(teams.ElementAt(allTeamsListBox.SelectedIndex));
@@ -211,7 +226,7 @@ namespace SportManager
                     buttonAllTeamListAdd.IsEnabled = true;
                     removeTeamBtn.IsEnabled = true;
                 }
-            }     
+            }
         }
 
         public void clickRemoveTeam(object sender, RoutedEventArgs e)
@@ -262,7 +277,7 @@ namespace SportManager
                 return;
             }
             tournament.startTournament(matchesListBox);
-             stateInitWindow();
+            stateInitWindow();
         }
 
         private void endTournament_Click(object sender, RoutedEventArgs e)
@@ -276,7 +291,7 @@ namespace SportManager
             MatchButton matchBtn = (MatchButton)sender;
             Match m = (matchBtn).match;
             if (m == null) return;
-            MatchDetails matchDetails = new MatchDetails(m,teams);
+            MatchDetails matchDetails = new MatchDetails(m, teams);
             matchDetails.match = m;
             if (true == matchDetails.ShowDialog()
                 && m != null
@@ -366,19 +381,19 @@ namespace SportManager
         private void setCupMatchContent(Match match, TextBlock matchDesc)
         {
             if (match == null)
-                matchDesc.Text = "No match";
+                matchDesc.Text = "Brak meczu";
             else
             {
                 matchDesc.Text = String.Concat((match.host != null)
                     ? (match.host.name
                     + " ["
                     + match.host_goal)
-                    : ("No team [-"), ":", (
+                    : ("Brak drużyny [-"), ":", (
                     (match.guest != null)
                     ? (match.guest_goal
                     + "] "
                     + match.guest.name)
-                    : "-] No Team")
+                    : "-] Brak drużyny")
                 );
             }
         }
@@ -416,32 +431,32 @@ namespace SportManager
         private void teamDetails_Click(object sender, RoutedEventArgs e)
         {
             var team = ((Team)((Grid)((Button)sender).Parent).DataContext);
-            TeamDetails teamDetail =new TeamDetails(team);
+            TeamDetails teamDetail = new TeamDetails(team);
             teamDetail.ShowDialog();
         }
         public void standigsUpdate(Match match)
         {
             LeagueStanding league = tournament.league;
-            
-            if(match.matchEnded)
+
+            if (match.matchEnded)
             {
-               foreach(var teamstats in league.rank)
+                foreach (var teamstats in league.rank)
                 {
-                    if(teamstats.team == match.host)
+                    if (teamstats.team == match.host)
                     {
-                        if(match.host_goal > match.guest_goal)
+                        if (match.host_goal > match.guest_goal)
                         {
                             teamstats.win++;
                             teamstats.goal_for += match.host_goal;
                             teamstats.goal_against += match.guest_goal;
                             teamstats.points += 3;
                         }
-                        else if(match.host_goal < match.guest_goal)
+                        else if (match.host_goal < match.guest_goal)
                         {
                             teamstats.loose++;
                             teamstats.goal_for += match.host_goal;
                             teamstats.goal_against += match.guest_goal;
-                            
+
                         }
                         else
                         {
@@ -451,11 +466,11 @@ namespace SportManager
                             teamstats.points++;
                         }
                     }
-                    else if(teamstats.team == match.guest)
+                    else if (teamstats.team == match.guest)
                     {
                         if (match.host_goal > match.guest_goal)
                         {
-                            
+
                             teamstats.loose++;
                             teamstats.goal_for += match.guest_goal;
                             teamstats.goal_against += match.host_goal;
@@ -477,13 +492,10 @@ namespace SportManager
                         }
                     }
                 }
-               
-                
-
             }
             //sortowanie po punktach i przypisywanie lp
             bool[] check = new bool[league.rank.Count];
-            for (int i = 1; i < league.rank.Count +1; i++)
+            for (int i = 1; i < league.rank.Count + 1; i++)
             {
                 int max = -3;
                 int temp = -3;
@@ -493,22 +505,27 @@ namespace SportManager
                     {
                         if (league.rank[j].points > max)
                         {
-                          
+
                             max = league.rank[j].points;
-                                temp = j;
-                            
+                            temp = j;
+
                         }
                     }
 
                 }
-                if(temp != -3)
+                if (temp != -3)
                 {
-                    league.rank[temp].lp = i;                    
+                    league.rank[temp].lp = i;
                     check[temp] = true;
-                }              
+                }
             }
-            league.rank.Sort((x,y) => x.lp.CompareTo(y.lp));
+            league.rank.Sort((x, y) => x.lp.CompareTo(y.lp));
             leagueStandingView.Items.Refresh();
+        }
+
+        private void openDescription_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(tournament.description, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

@@ -20,9 +20,10 @@
         <Border Padding="6" Background="#4CD1FF00" BorderThickness="0,0,10,0" ScrollViewer.CanContentScroll="True" BorderBrush="#FFC5FF00"  >
             <Grid>
                 <StackPanel Orientation="Vertical"  VerticalAlignment="Center" >
-                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="Create_Tournament" >Create Tournament</Button>
-                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="createTeam" >Create Team</Button>
-                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="printTournaments">Print Tournaments</Button>
+                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="Create_Tournament" >Dodaj turniej
+                    </Button>
+                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="createTeam" >Stwórz drużynę</Button>
+                    <Button Padding="10" Background="#FFFFC707" Foreground="White" FontSize="14" FontWeight="Bold" BorderBrush="#00707070" Click="printTournaments">Pobierz dane</Button>
                 </StackPanel>
             </Grid>
         </Border>
@@ -34,7 +35,7 @@
             <Grid>
                 <StackPanel>
                     <DockPanel>
-                        <Label Margin="3">Sorting</Label>
+                        <Label Margin="3">Sortowanie</Label>
                         <ComboBox SelectionChanged="Sort" x:Name="sort">
                             <ComboBoxItem IsSelected="True" >Start date - ascending</ComboBoxItem>
                             <ComboBoxItem>Start date - descending</ComboBoxItem>
@@ -43,7 +44,7 @@
                         </ComboBox>
                     </DockPanel>
                     <DockPanel >
-                        <Label Margin="3">Active tournaments</Label>
+                        <Label Margin="3">Status turnieju</Label>
                         <ComboBox SelectionChanged="SelectState"  x:Name="selectState" >
                             <ComboBoxItem  >Done</ComboBoxItem>
                             <ComboBoxItem>In progress</ComboBoxItem>
@@ -52,15 +53,13 @@
                         </ComboBox>
                     </DockPanel>
                     <DockPanel >
-                        <Label Margin="3">Tournament title</Label>
+                        <Label Margin="3">Nazwa turnieju</Label>
                         <TextBox x:Name="tournamentName" TextChanged="TournamentTitleChange"/>
                     </DockPanel>
                     <Separator />
                 </StackPanel>
             </Grid>
-
-
-            <ListBox Name="tournametsList" Margin="10" Grid.Row="1" SelectionMode="Single" SelectionChanged="showTournament">
+            <ListBox Name="tournametsList" Margin="10" Grid.Row="1" SelectionMode="Single" >
 
                 <ListBox.ItemTemplate >
                     <DataTemplate >
@@ -71,7 +70,7 @@
                             <Border BorderThickness="3" BorderBrush="AntiqueWhite"   Padding="4,4,4,4" Margin="0,0,0,8"  MinWidth="400" >
                                 <Grid >
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" MinWidth="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
                                         <ColumnDefinition  Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
@@ -79,10 +78,11 @@
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition Height="*"></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <TextBlock  Grid.ColumnSpan="2" Text="{Binding Path=title}"/>
+                                    <TextBlock  Grid.ColumnSpan="3" Text="{Binding Path=title}"/>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=startDate}" Margin="0,0,20,0"/>
                                     <TextBlock Grid.Column="1" Grid.Row="1"  Text="{Binding Status}"/>
-                                    <Button Grid.Column="0" Grid.Row="2" Click="remove" Tag="{Binding}" Visibility="{Binding status, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static localModelsEnums:TournamentStatus.NOT_STARTED}}">Remove</Button>
+                                    <Button Grid.Column="0" Grid.Row="2" Click="remove" Tag="{Binding}" Visibility="{Binding status, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static localModelsEnums:TournamentStatus.NOT_STARTED}}">Usuń</Button>
+                                    <Button Grid.Column="1" Grid.Row="2" Click="showTournament" Margin="30,0,0,0" >Wyświetl</Button>
                                 </Grid>
                             </Border>
                         </Grid>

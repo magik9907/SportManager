@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <DockPanel  Background="Bisque" >
             <TextBlock FontSize="20" HorizontalAlignment="Center"  Padding="10,4">
-            Create new Tournament
+            Stwórz nowy turniej
             </TextBlock>
         </DockPanel>
         <Grid Grid.Row="1" Name="FormGrid"  Margin="8 ,16">
@@ -30,15 +30,15 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel >
-                <Label FontSize="16">Title: </Label>
+                <Label FontSize="16">Nazwa: </Label>
                 <TextBox   FontSize="16" Padding="2,4" Text="{Binding title}"></TextBox>
             </StackPanel>
             <DockPanel Grid.Row="1">
-                <Label FontSize="16">Start date: </Label>
+                <Label FontSize="16">Data rozpoczęcia turnieju: </Label>
                 <xctk:DateTimePicker  FontSize="16" Padding="2,4" Value="{Binding startDate}" ></xctk:DateTimePicker>
             </DockPanel>
             <DockPanel Grid.Row="2">
-                <Label FontSize="16">Status: </Label>
+                <Label FontSize="16">Obecny status: </Label>
                 <TextBlock FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Status}"></TextBlock>
             </DockPanel>
             <Grid Grid.Row="3">
@@ -48,12 +48,12 @@
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                    <Label FontSize="16" Grid.Column="0">Game type:</Label>
+                    <Label FontSize="16" Grid.Column="0">Typ rozgrywek:</Label>
                 <RadioButton GroupName="tournamentType" Grid.Column="1" IsChecked="True" Name="leagueOption" VerticalAlignment="Center" Click="ChangeTournamentType"  Content="League"></RadioButton>
                 <RadioButton GroupName="tournamentType" Grid.Column="2"  x:Name="cupOption" Click="ChangeTournamentType" Content="Cup" VerticalAlignment="Center"></RadioButton>
             </Grid>
             <DockPanel Grid.Row="4">
-                <Label FontSize="16" Grid.Column="0">Number of teams:</Label>
+                <Label FontSize="16" Grid.Column="0">Liczba drużyn:</Label>
                 <xctk:IntegerUpDown Minimum="2" Value="{Binding numberOfTeams}"></xctk:IntegerUpDown>
             </DockPanel>
             <Grid Grid.Row="5">
@@ -61,7 +61,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label FontSize="16">Description:</Label>
+                <Label FontSize="16">Opis:</Label>
                 <TextBox Grid.Row="1" FontSize="16"
                          Text="{Binding description}"
                     TextWrapping="Wrap"
@@ -72,10 +72,10 @@
         </Grid>
 
         <DockPanel Grid.Row="2" Background="Bisque">
-                <Button Background="Red" BorderBrush="DarkRed" Foreground="White"
-                          Padding="20,6" BorderThickness="10" FontSize="16" HorizontalAlignment="Left" Click="CancelClick" IsCancel="True">Cancel</Button>
+            <Button Background="Red" BorderBrush="DarkRed" Foreground="White"
+                          Padding="20,6" BorderThickness="10" FontSize="16" HorizontalAlignment="Left" Click="CancelClick" IsCancel="True">Anuluj</Button>
             <Button  Background="Green" BorderThickness="10" BorderBrush="DarkGreen" Foreground="White"
-                         Padding="20,6" FontSize="16" HorizontalAlignment="Right" Click="CreateClick">Save</Button>
+                         Padding="20,6" FontSize="16" HorizontalAlignment="Right" Click="CreateClick">Zapisz</Button>
         </DockPanel>
 
     </Grid>

@@ -28,11 +28,11 @@ namespace SportManager.Models
             {
                 switch (status)
                 {
-                    case TournamentStatus.DONE: return "Done";
-                    case TournamentStatus.IN_PRROGRESS: return "In progress";
-                    case TournamentStatus.NOT_STARTED: return "Not started";
+                    case TournamentStatus.DONE: return "Zakończone";
+                    case TournamentStatus.IN_PRROGRESS: return "W trakcie";
+                    case TournamentStatus.NOT_STARTED: return "Nie zaczęte";
                 }
-                return "Unknown";
+                return "Nieznany";
             }
         }
 

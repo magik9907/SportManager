@@ -34,6 +34,10 @@ namespace SportManager
 
             teams.Add(
                 new Team(3, "Jagielonia", "Stadion miejscki", "25", "80939 ", "Białystok"));
+            teams.Add(
+               new Team(4, "Legia Warszawa", "Stadion miejscki", "25", "80939 ", "Białystok"));
+            teams.Add(
+               new Team(5, "Liverpool", "Stadion miejscki", "25", "80939 ", "Białystok"));
 
 
         }
@@ -50,15 +54,16 @@ namespace SportManager
         }
 
 
-        private void showTournament(object sender, SelectionChangedEventArgs e)
+        private void showTournament(object sender, RoutedEventArgs e)
         {
-            var btn = sender as ListBox;
-            Tournament tournament = (Tournament)btn.SelectedItem;
+            var btn = sender as Button;
+            Tournament tournament = (Tournament)btn.DataContext;
             TournamentDetails tournamentDetails = new TournamentDetails(tournament, teams);
             if (true == tournamentDetails.ShowDialog())
             {
-
             }
+
+            filter();
         }
 
 
@@ -128,14 +133,15 @@ namespace SportManager
                 cup.mock();
 
                 LeagueStanding league = new LeagueStanding();
-
                 league.mock();
-                tournamentsCopy.Add(
-                    new Tournament(1, "Tournament 1", DateTime.Parse("2022-01-11"), 4, TournamentStatus.NOT_STARTED, null, new CupStanding(), "Cup"));
-                tournamentsCopy.Add(new Tournament(2, "Tournament 2", DateTime.Parse("2022-11-22"), 4, TournamentStatus.IN_PRROGRESS, league, cup, "League"));
-                tournamentsCopy.Add(new Tournament(3, "Tournament 3", DateTime.Parse("2022-03-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
-                tournamentsCopy.Add(new Tournament(4, "Tournament 4", DateTime.Parse("2022-06-22"), 4, TournamentStatus.DONE, league, cup, "Cup"));
-                tournamentsCopy.Add(new Tournament(5, "Tournament 5", DateTime.Parse("2022-05-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
+                var t = new Tournament(1, "Copa Cabana", DateTime.Parse("2022-01-11"), 4, TournamentStatus.NOT_STARTED, null, new CupStanding(), "Cup");
+                tournamentsCopy.Add(t
+                   );
+                tournamentsCopy.Add(new Tournament(2, "Turniej małego piłkarza", DateTime.Parse("2022-11-22"), 4, TournamentStatus.IN_PRROGRESS, league, cup, "League"));
+
+                tournamentsCopy.Add(new Tournament(2, "Turniej małego piłkarza", DateTime.Parse("2022-11-22"), 4, TournamentStatus.IN_PRROGRESS, league, cup, "Cup"));
+                tournamentsCopy.Add(new Tournament(3, "Dookoła świata", DateTime.Parse("2022-03-11"), 4, TournamentStatus.NOT_STARTED, league, cup, "Cup"));
+                tournamentsCopy.Add(new Tournament(4, "Puchar świata", DateTime.Parse("2022-06-22"), 4, TournamentStatus.DONE, league, cup, "Cup"));
                 filter("", "Start date - ascending", null);
             }
 

@@ -31,7 +31,7 @@ namespace SportManager.Models
                 this.win = win;
                 this.draw = draw;
                 this.loose = loose;
-                this.goal_for = goal_for;   
+                this.goal_for = goal_for;
                 this.goal_against = goal_against;
 
             }
@@ -45,27 +45,23 @@ namespace SportManager.Models
 
         public void start(Collection<Team> teams, System.Windows.Controls.ListBox matchesListBox)
         {
-           for (int i = 0; i < teams.Count; i++)
+            for (int i = 0; i < teams.Count; i++)
             {
-               for(int j = 0; j < teams.Count; j++)
+                for (int j = 0; j < teams.Count; j++)
                 {
-                    if (i<j)
+                    if (i < j)
                     {
 
                         matches.Add(new Match { guest = teams.ElementAt(j), host = teams.ElementAt(i) });
                         matches.Add(new Match { guest = teams.ElementAt(i), host = teams.ElementAt(j) });
-/*                        System.Diagnostics.Debug.WriteLine(teams.ElementAt(j).name + " vs " + teams.ElementAt(i).name);
-                        System.Diagnostics.Debug.WriteLine(teams.ElementAt(i).name + " vs " + teams.ElementAt(j).name);*/
                     }
                 }
                 rank.Add(new TeamStats(i + 1, teams.ElementAt(i), 0, 0, 0, 0, 0, 0));
-               
-                
+
+
             }
             matchesListBox.ItemsSource = matches;
             System.Diagnostics.Debug.WriteLine(teams.Count);
-
-            
         }
 
 
@@ -73,7 +69,8 @@ namespace SportManager.Models
         {
             rank.Add(new TeamStats()
             {
-                lp = 1,points=20,
+                lp = 1,
+                points = 20,
                 win = 3,
                 draw = 4,
                 loose = 2,

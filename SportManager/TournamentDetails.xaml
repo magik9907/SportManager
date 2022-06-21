@@ -17,14 +17,15 @@
         </Grid.RowDefinitions>
         <DockPanel>
             <TextBlock x:Name="title" Text="Tournament Name" FontSize="20"  DockPanel.Dock="Left"  />
+            <Button x:Name="openDescription" Click="openDescription_Click"  Margin="50,0,50,0" Width="200">Opis</Button>
             <Grid >
-                <Button x:Name="startTournament" Click="startTournament_Click">Start tournament</Button>
-                <Button x:Name="endTournament" Click="endTournament_Click">End tournament</Button>
+                <Button x:Name="startTournament" Click="startTournament_Click">Rozpocznij turniej</Button>
+                <Button x:Name="endTournament" Click="endTournament_Click">Zakończ turniej</Button>
             </Grid>
         </DockPanel>
         <TabControl Grid.Row="1"  TabStripPlacement="Right" HorizontalContentAlignment="Right" >
 
-            <TabItem Header="Matches" x:Name="matches">
+            <TabItem Header="Mecze" x:Name="matches">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -38,9 +39,9 @@
                             <ColumnDefinition Width="20*"/>
                             <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock  Text="Home Team" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="0"></TextBlock>
-                        <TextBlock  Text="Score" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="1"></TextBlock>
-                        <TextBlock  Text="Away Team" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="2"></TextBlock>
+                        <TextBlock  Text="Gospodarz" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="0"></TextBlock>
+                        <TextBlock  Text="Wynik" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="1"></TextBlock>
+                        <TextBlock  Text="Gość" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" Grid.Column="2"></TextBlock>
                     </Grid>
 
                     <ListBox Grid.Row="2" x:Name="matchesListBox" SelectionMode="Single" SelectionChanged="showMatch">
@@ -78,7 +79,7 @@
 
             </TabItem>
 
-            <TabItem Header="Standing" x:Name="standing">
+            <TabItem Header="Tabela" x:Name="standing">
                 <DataGrid AutoGenerateColumns="False" IsReadOnly="True"  x:Name="leagueStandingView">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="L.P." Binding="{Binding lp}"/>
@@ -92,24 +93,24 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Team"  Width="*" Binding="{Binding team.name}"/>
-                        <DataGridTextColumn Header="Points" Binding="{Binding points}"/>
-                        <DataGridTextColumn Header="Win" Binding="{Binding win}"/>
-                        <DataGridTextColumn Header="Draw" Binding="{Binding draw}"/>
-                        <DataGridTextColumn Header="Loose" Binding="{Binding loose}"/>
-                        <DataGridTextColumn Header="Goals for" Binding="{Binding goal_for}"/>
-                        <DataGridTextColumn Header="Goals against" Binding="{Binding goal_against}"/>
+                        <DataGridTextColumn Header="Zespół"  Width="*" Binding="{Binding team.name}"/>
+                        <DataGridTextColumn Header="Punkty" Binding="{Binding points}"/>
+                        <DataGridTextColumn Header="Zwycięstw" Binding="{Binding win}"/>
+                        <DataGridTextColumn Header="Remisów" Binding="{Binding draw}"/>
+                        <DataGridTextColumn Header="Przegranych" Binding="{Binding loose}"/>
+                        <DataGridTextColumn Header="Gole zdobyte" Binding="{Binding goal_for}"/>
+                        <DataGridTextColumn Header="Gole stracone" Binding="{Binding goal_against}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
             </TabItem>
-            <TabItem Header="Cup" x:Name="cup">
+            <TabItem Header="Puchary" x:Name="cup">
                 <ScrollViewer x:Name="CupView"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
                 </ScrollViewer>
 
             </TabItem>
-            <TabItem Header="Staticstics" x:Name="statistic">
+            <TabItem Header="Statystyku" x:Name="statistic">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -121,7 +122,7 @@
                     </ListBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Participating teams" x:Name="participants">
+            <TabItem Header="Uczestniczące drużyny" x:Name="participants">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -141,9 +142,9 @@
                             <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Id" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="0"/>
-                        <TextBlock Text="Crest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
-                        <TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="2"/>
-                        <TextBlock Text="Address" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="3"/>
+                        <TextBlock Text="Herb" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
+                        <TextBlock Text="Nazwa" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="2"/>
+                        <TextBlock Text="Adres" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="3"/>
 
                     </Grid>
 
@@ -167,16 +168,16 @@
                                     <Image Grid.Column="1" Source="{Binding crest}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="2" Text="{Binding name}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="3" Text="{Binding address}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <Button Grid.Column="4" x:Name="teamDetails" Click="teamDetails_Click">Details</Button>
+                                    <Button Grid.Column="4" x:Name="teamDetails" Click="teamDetails_Click">Szczegóły</Button>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Grid.Row="3" Name="removeTeamBtn" Content="Remove team" Margin="250,10" Click="clickRemoveTeam"/>
+                    <Button Grid.Row="3" Name="removeTeamBtn" Content="Usuń" Margin="250,10" Click="clickRemoveTeam"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Add team" x:Name="add" Height="20" VerticalAlignment="Bottom" >
+            <TabItem Header="Dodaj drużynę" x:Name="add" Height="20" VerticalAlignment="Bottom" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -185,7 +186,7 @@
                         <RowDefinition Height="10*"/>
                     </Grid.RowDefinitions>
                     <DockPanel VerticalAlignment="Center">
-                        <TextBlock FontSize="16">Team name:</TextBlock>
+                        <TextBlock FontSize="16">Nazwa drużyny:</TextBlock>
                         <TextBox Name="findNewTeamBox" Margin="20,0,0,0" TextChanged="findNewTeamBox_TextChanged"></TextBox>
                     </DockPanel>
                     <Grid Grid.Row="1">
@@ -196,9 +197,9 @@
                             <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Id" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="0"/>
-                        <TextBlock Text="Crest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
-                        <TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="2"/>
-                        <TextBlock Text="Address" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="3"/>
+                        <TextBlock Text="Herb" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
+                        <TextBlock Text="Nazwa" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="2"/>
+                        <TextBlock Text="Adres" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="3"/>
 
                     </Grid>
 
@@ -228,7 +229,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button x:Name="buttonAllTeamListAdd" Grid.Row="3" Content="Add team" Margin="250,10" Click="clickAddTeam" />
+                    <Button x:Name="buttonAllTeamListAdd" Grid.Row="3" Content="Dodaj drużynę" Margin="250,10" Click="clickAddTeam" />
                 </Grid>
             </TabItem>
         </TabControl>
